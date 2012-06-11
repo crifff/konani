@@ -1,3 +1,9 @@
 [submodule "yii"]
 	path = yii
 	url = git://github.com/hoshina85/yii.git
+[submodule "protected/extensions/YiiBootstrap"]
+	path = protected/extensions/YiiBootstrap
+	url = git://github.com/VisualAppeal/YiiBootstrap.git
+[submodule "extensions/YiiMongoDbSuite"]
+	path = protected/extensions/YiiMongoDbSuite
+	url = git://github.com/canni/YiiMongoDbSuite.git

@@ -16,18 +16,20 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+		'application.extensions.YiiMongoDbSuite.*',
 	),
 
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
-		/*
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
-			'password'=>'Enter Your Password Here',
+			'password'=>'hogehoge',
 		 	// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
+      'generatorPaths'=>array(
+        'application.extensions.YiiMongoDbSuite.gii'
+      ),
 		),
-		*/
 	),
 
 	// application components
@@ -47,9 +49,15 @@ return array(
 			),
 		),
 		*/
-		'db'=>array(
-			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
-		),
+    'db' => array(
+      'class'            => 'EMongoDB',
+      'connectionString' => 'mongodb://localhost',
+      'dbName'           => 'myDatabaseName',
+      'fsyncFlag'        => true,
+      'safeFlag'         => true,
+      'useCursor'        => false
+    ),
+    //
 		// uncomment the following to use a MySQL database
 		/*
 		'db'=>array(
