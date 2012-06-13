@@ -100,4 +100,15 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+
+  public function actionTwitterlogin() {
+    $ui = new TwitterUserIdentity(TWITTER_COMSUMER_KEY, TWITTER_COMSUMER_SECRET);
+    if ($ui->authenticate()) {
+      $user=Yii::app()->user;
+      $user->login($ui);
+      $this->redirect($user->returnUrl);
+    } else {
+      throw new CHttpException(401, $ui->error);
+    }
+  }
 }
