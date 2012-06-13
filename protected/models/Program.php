@@ -16,13 +16,20 @@ class Program extends EMongoDocument
   public $Warn;
   public $Revision;
   public $AllDay;
+  public $UserID;
+  public $ConfFlag;
   public $Title;
-  public $Shorttitle;
+  public $ShortTitle;
   public $Cat;
   public $Urls;
   public $ChName;
-  public $ChUTL;
+  public $ChURL;
   public $ChGID;
+
+	public function primaryKey()
+	{
+		return '_id'; 
+	}
 
   /**
    * This method have to be defined in every Model
@@ -36,13 +43,18 @@ class Program extends EMongoDocument
   // We can define rules for fields, just like in normal CModel/CActiveRecord classes
   public function rules()
   {
+    return array(
+      array('Title', 'safe'),
+      array('Title', 'safe', 'on'=>'search'),
+    );
   }
 
   // the same with attribute names
-  public function attributeNames()
+  public function attributeLabels()
   {
     return array(
-      'Title' => 'タイトル',
+      'ID' => '_id',
+      'タイトル' => 'Title',
     );
   }
 
@@ -51,6 +63,7 @@ class Program extends EMongoDocument
    */
   public static function model($className=__CLASS__)
   {
-    return parent::model($classname);
+    return parent::model($className);
   }
+
 }

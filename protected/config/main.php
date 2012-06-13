@@ -52,10 +52,10 @@ return array(
 			),
 		),
 		*/
-    'db' => array(
+    'mongodb' => array(
       'class'            => 'EMongoDB',
       'connectionString' => 'mongodb://localhost',
-      'dbName'           => 'myDatabaseName',
+      'dbName'           => 'test',
       'fsyncFlag'        => true,
       'safeFlag'         => true,
       'useCursor'        => false
