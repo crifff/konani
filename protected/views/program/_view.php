@@ -5,21 +5,10 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('StTime')); ?>:</b>
-	<?php echo CHtml::encode($data->StTime); ?>
+	<?php echo date('Y-m-d H:i:s',$data->StTime); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('EdTime')); ?>:</b>
-	<?php echo CHtml::encode($data->EdTime); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('LastUpdate')); ?>:</b>
-	<?php echo CHtml::encode($data->LastUpdate); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('Count')); ?>:</b>
-	<?php echo CHtml::encode($data->Count); ?>
-	<br />
-
+<!--
 	<b><?php echo CHtml::encode($data->getAttributeLabel('StOffset')); ?>:</b>
 	<?php echo CHtml::encode($data->StOffset); ?>
 	<br />
@@ -28,7 +17,6 @@
 	<?php echo CHtml::encode($data->TID); ?>
 	<br />
 
-	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('PID')); ?>:</b>
 	<?php echo CHtml::encode($data->PID); ?>
 	<br />
@@ -73,10 +61,12 @@
 	<?php echo CHtml::encode($data->ConfFlag); ?>
 	<br />
 
+-->
 	<b><?php echo CHtml::encode($data->getAttributeLabel('Title')); ?>:</b>
 	<?php echo CHtml::encode($data->Title); ?>
 	<br />
 
+<!--
 	<b><?php echo CHtml::encode($data->getAttributeLabel('ShortTitle')); ?>:</b>
 	<?php echo CHtml::encode($data->ShortTitle); ?>
 	<br />
@@ -89,10 +79,13 @@
 	<?php echo CHtml::encode($data->Urls); ?>
 	<br />
 
+-->
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('ChName')); ?>:</b>
 	<?php echo CHtml::encode($data->ChName); ?>
 	<br />
 
+<!--
 	<b><?php echo CHtml::encode($data->getAttributeLabel('ChURL')); ?>:</b>
 	<?php echo CHtml::encode($data->ChURL); ?>
 	<br />
@@ -101,6 +94,6 @@
 	<?php echo CHtml::encode($data->ChGID); ?>
 	<br />
 
-	*/ ?>
+-->
 
 </div>

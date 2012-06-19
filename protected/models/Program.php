@@ -31,25 +31,58 @@ class Program extends EMongoDocument
 		return '_id'; 
 	}
 
-  /**
-   * This method have to be defined in every Model
-   * @return string MongoDB collection name, witch will be used to store documents of this model
-   */
   public function getCollectionName()
   {
     return 'programs';
   }
 
-  // We can define rules for fields, just like in normal CModel/CActiveRecord classes
-  public function rules()
+  public function indexes()
   {
     return array(
-      array('Title', 'safe'),
-      array('Title', 'safe', 'on'=>'search'),
+      'PID'=>array(
+        'key'=>array('PID'),
+        'unique'=>true
+      )
     );
   }
 
-  // the same with attribute names
+  public function rules()
+  {
+    return array(
+      array('StTime
+      ,EdTime
+      ,LastUpdate
+      ,Count
+      ,StOffset
+      ,TID
+      ,PID
+      ,ProgComment
+      ,ChID
+      ,SubTitle
+      ,Flag
+      ,Deleted
+      ,Warn
+      ,Revision
+      ,AllDay
+      ,UserID
+      ,ConfFlag
+      ,Title
+      ,ShortTitle
+      ,Cat
+      ,Urls
+      ,ChName
+      ,ChURL
+      ,ChGID',
+      'safe'),
+    );
+  }
+
+  public function scopes()
+  {
+    return array(
+    );
+  }
+
   public function attributeLabels()
   {
     return array(
@@ -58,9 +91,6 @@ class Program extends EMongoDocument
     );
   }
 
-  /**
-   * This method have to be defined in every model, like with normal CActiveRecord
-   */
   public static function model($className=__CLASS__)
   {
     return parent::model($className);
