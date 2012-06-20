@@ -2,24 +2,22 @@
 class ProgramCommand extends CConsoleCommand
 {
   public function run($args) {
-    $m = new Mongo("mongodb://localhost");
-    $db=$m->test;
-    $collection=$db->series;
-    $data=json_decode(file_get_contents('http://cal.syoboi.jp/rss2.php?alt=json&days=14&count=1000&start=201207010000'));
+    $data=json_decode(file_get_contents('http://cal.syoboi.jp/rss2.php?alt=json&days=14&count=1000&'));
     foreach($data->items as $r){
       $program = Program::model()->findByAttributes(array('PID'=>$r->PID));
+
       if(!$program)
       {
         $program = new Program;
         $program->attributes=(array)$r;
         $program->save();
-        echo 'save '.$program->Title."\n";
+        //echo 'save '.$program->Title."\n";
       }
       else
       {
         $program->attributes=(array)$r;
-        $program->save();
-        echo 'update '.$program->Title."\n";
+        $program->update(array_keys($program->attributes),true);
+        //echo 'update '.$program->Title."\n";
       }
       $series = Series::model()->findByAttributes(array('TID'=>$r->TID));
       if(!$series)

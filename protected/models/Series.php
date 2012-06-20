@@ -46,6 +46,7 @@ class Series extends EMongoDocument
       ,FirstCh
       ,Keywords
       ,SubTitles
+      ,_id
       ',
       'safe'),
     );
@@ -70,4 +71,13 @@ class Series extends EMongoDocument
     return parent::model($className);
   }
 
+  public function setAttributes($values, $safeOnly = true)
+  {
+    foreach($values as $key => $value)
+    {
+      if(is_array($value) && count($value) === 0)
+        $values[$key] = '';
+    }
+    return parent::setAttributes($values);
+  }
 }

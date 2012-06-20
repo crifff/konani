@@ -72,7 +72,8 @@ class Program extends EMongoDocument
       ,Urls
       ,ChName
       ,ChURL
-      ,ChGID',
+      ,ChGID
+      ,_id',
       'safe'),
     );
   }
@@ -94,6 +95,16 @@ class Program extends EMongoDocument
   public static function model($className=__CLASS__)
   {
     return parent::model($className);
+  }
+
+  public function setAttributes($values, $safeOnly = true)
+  {
+    foreach($values as $key => $value)
+    {
+      if(is_array($value) && count($value) === 0)
+        $values[$key] = '';
+    }
+    return parent::setAttributes($values);
   }
 
 }
