@@ -43,14 +43,18 @@ return array(
 		),
 		// uncomment the following to enable URLs in path-format
 		'urlManager'=>array(
-			'urlFormat'=>'path',
-			'rules'=>array(
-				'season/<year:\d+>/<cour:\d+>'=>'cour/index',
-				'<controller:\w+>/<action:\w+>/<id:\w+>'=>'<controller>/<action>',
-				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-				'<controller:\w+>/<id:\w+>'=>'<controller>/view',
-			),
-		),
+      'urlFormat'=>'path',
+      'showScriptName'=>false,
+      'caseSensitive'=>false,  
+      'rules'=>array(
+        '/'=>'site/index',
+        'season/<year:\d+>/<cour:\d+>'=>'cour/index',
+        '<controller:\w+>/'=>'<controller>/index',
+        '<controller:\w+>/<action:\w+>/<id:\w+>'=>'<controller>/<action>',
+        '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+        '<controller:\w+>/<id:\w+>'=>'<controller>/view',
+      ),
+    ),
     'mongodb' => array(
       'class'            => 'EMongoDB',
       'connectionString' => 'mongodb://localhost',
