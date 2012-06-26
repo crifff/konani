@@ -159,8 +159,10 @@ class SeriesController extends Controller
         'twitter_id'=>Yii::app()->session['twitter_user']->screen_name
       )
     );
-    $user->check($_GET['id']);
-    echo 'success';
+    return $user->check(array(
+      'TID' => $_GET['tid'],
+      'ChID' => $_GET['chid']
+    ));
   }
 
 	/**

@@ -23,6 +23,11 @@ $this->menu=array(
 		'_id',
 	),
 )); ?>
-<?php foreach($model->checklist as $key => $id):?>
-<?php echo $key?><br>
+<?php foreach($model->getCheckedPrograms() as $program):?>
+<?php echo date('m/d H:i', $program->StTime)?>
+<?php echo ($program->ChName)?>
+<?php echo ($program->Title)?><br>
+<?php endforeach?>
+<?php foreach($model->checklist as $conditions):?>
+<?php echo json_encode($conditions)?><br>
 <?php endforeach?>

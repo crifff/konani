@@ -53,17 +53,46 @@ class User extends EMongoDocument
     return parent::model($className);
   }
 
-  public function check($tid)
+  public function check($conditions)
   {
     if(!is_array($this->checklist))
       $this->checklist=array();
 
-    $this->checklist[$tid]=true;
+    $this->checklist[]=$conditions;
     return $this->save();
   }
 
   public function isChecked($tid)
   {
     return isset($this->checklist[$tid]);
+  }
+
+  public function getCheckedSeries()
+  {
+    if(count($this->checklist)===0)
+      return array();
+
+    $tids=array();
+    foreach($this->checklist as $conditions){
+      if($conditions['TID'])
+        $tids[]=$conditions['TID'];
+    }
+    $criteria = new EMongoCriteria;
+    $criteria->addCond('TID','in',$tids);
+    return Series::model()->findAll($criteria);
+  }
+
+  public function getCheckedPrograms()
+  {
+    if(count($this->checklist)===0)
+      return array();
+
+    $tids=array();
+    $criteria = new EMongoCriteria;
+    foreach($this->checklist as $conditions){
+      $criteria->addCond(null,'or',$conditions);
+    }
+    $criteria->sort('StTime',1);
+    return Program::model()->findAll($criteria);
   }
 }
