@@ -16,7 +16,7 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
-		'ext.YiiMongoDbSuite.*',
+		'ext.YiiMongoDbSuite14.*',
 		'ext.TwitterExtension4Yii.*',
 		'ext.TwitterExtension4Yii.lib.*',
 		'ext.EMongoDbHttpSession.*',
@@ -30,7 +30,7 @@ return array(
 		 	// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
       'generatorPaths'=>array(
-        'application.extensions.YiiMongoDbSuite.gii'
+        'application.extensions.YiiMongoDbSuite14.gii'
       ),
 		),
 	),
