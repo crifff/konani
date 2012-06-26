@@ -48,7 +48,7 @@ return array(
 				'season/<year:\d+>/<cour:\d+>'=>'cour/index',
 				'<controller:\w+>/<action:\w+>/<id:\w+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-				'<controller:\w+>/<id:[a-z0-9]+>'=>'<controller>/view',
+				'<controller:\w+>/<id:\w+>'=>'<controller>/view',
 			),
 		),
     'mongodb' => array(
@@ -74,6 +74,9 @@ return array(
           'levels'=>'error, warning',
         ),
       ),
+    ),
+    'request'=> array(
+      'enableCsrfValidation'=>true
     ),
   ),
 

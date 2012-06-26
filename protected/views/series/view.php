@@ -15,6 +15,7 @@ $this->menu=array(
 
 <h1>View Series #<?php echo $model->_id; ?></h1>
 
+<?php echo CHtml::ajaxButton('check',array('series/check','id'=>$model->TID))?>
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
@@ -36,3 +37,10 @@ $this->menu=array(
 		'_id',
 	),
 )); ?>
+
+<?php foreach($programs as $program):?>
+<?php echo date('Y-m-d H:i',$program->StTime)?>
+ <?= CHtml::encode($program->ChName)?> 
+ <?= CHtml::encode($program->SubTitle)?>
+<br>
+<?php endforeach?>

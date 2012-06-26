@@ -31,11 +31,11 @@ class SeriesController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
+				'actions'=>array('check'),
+				'users'=>array('crifff'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('create','update','admin','delete'),
 				'users'=>array('crifff'),
 			),
 			array('deny',  // deny all users
@@ -50,8 +50,11 @@ class SeriesController extends Controller
 	 */
 	public function actionView($id)
 	{
+    $series=$this->loadModel($id);
+    $programs=$series->getChannels();
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$series,
+			'programs'=>$programs,
 		));
 	}
 
@@ -148,6 +151,17 @@ class SeriesController extends Controller
 			'model'=>$model
 		));
 	}
+
+  public function actionCheck()
+  {
+    $user = User::model()->findByAttributes(
+      array(
+        'twitter_id'=>Yii::app()->session['twitter_user']->screen_name
+      )
+    );
+    $user->check($_GET['id']);
+    echo 'success';
+  }
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.

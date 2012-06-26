@@ -21,8 +21,8 @@
     <?php $this->widget('zii.widgets.CMenu',array(
     'items'=>array(
     array('label'=>'Sign in with Twitter', 'url'=>array('/site/twitterlogin'), 'visible'=>Yii::app()->user->isGuest),
-    array('label'=>'Sign in with Facebook', 'url'=>array('/site/facebooklogin'), 'visible'=>Yii::app()->user->isGuest),
-    array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+//    array('label'=>'Sign in with Facebook', 'url'=>array('/site/facebooklogin'), 'visible'=>Yii::app()->user->isGuest),
+//    array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
     array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
     ),
     )); ?>
@@ -37,6 +37,10 @@
         'items'=>array(
         array('label'=>'Home', 'url'=>array('/site/index')),
         array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
+        array('label'=>'User', 'url'=>array('user/index')),
+        array('label'=>'Program', 'url'=>array('program/index')),
+        array('label'=>'Series', 'url'=>array('series/index')),
+        array('label'=>'Season', 'url'=>array('cour/index','year'=>2012,'cour'=>2)),
         array('label'=>'Contact', 'url'=>array('/site/contact')),
         array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
         array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)

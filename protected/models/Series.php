@@ -52,6 +52,13 @@ class Series extends EMongoDocument
     );
   }
 
+  public function Programs()
+  {
+    return Program::model()->findAllByAttributes(array(
+      'TID' => (string)$this->TID
+    ));
+  }
+
   public function scopes()
   {
     return array(
@@ -79,5 +86,13 @@ class Series extends EMongoDocument
         $values[$key] = '';
     }
     return parent::setAttributes($values);
+  }
+
+  public function getChannels()
+  {
+    $programs = Program::model()->newer()->yet()->findAllByAttributes(array(
+      'TID'=>(string)$this->TID,
+    ));
+    return $programs;
   }
 }

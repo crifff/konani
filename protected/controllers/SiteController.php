@@ -106,6 +106,12 @@ class SiteController extends Controller
     if ($ui->authenticate()) {
       $user=Yii::app()->user;
       $user->login($ui);
+      if(!User::model()->findByAttributes(array('twitter_id'=>$user->getName()))){
+        $model = new User;
+        $model->twitter_id = $user->getName();
+        $model->nickname = $user->getName();
+        $model->save();
+      };
       $this->redirect($user->returnUrl);
     } else {
       throw new CHttpException(401, $ui->error);

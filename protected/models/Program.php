@@ -81,6 +81,14 @@ class Program extends EMongoDocument
   public function scopes()
   {
     return array(
+      'newer'=>array('sort'=>array('StTime'=>EMongoCriteria::SORT_ASC)),
+      'yet'=>array(
+        'conditions'=>array(
+          'StTime'=>array(
+            'greaterEq'=>(string)time()
+          )
+        )
+      ),
     );
   }
 

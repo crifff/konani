@@ -6,9 +6,8 @@ $this->breadcrumbs=array(
 
 <h1>Series</h1>
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
-  'columns'=>array(
-    'Title'
+	'itemView'=>'_view',
   )
-)); ?>
+); ?>
