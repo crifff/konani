@@ -50,6 +50,7 @@ class SeriesController extends Controller
 	 */
 	public function actionView($id)
 	{
+    var_dump(Yii::app()->user->OAuth);exit;
     $series=$this->loadModel($id);
     $programs=$series->getChannels();
 		$this->render('view',array(
@@ -163,31 +164,41 @@ class SeriesController extends Controller
       'TID' => $_GET['tid'],
       'ChID' => $_GET['chid']
     ));
+    $OAuth = new tmhOAuth(array(
+      'consumer_key'    => TWITTER_COMSUMER_KEY,
+      'consumer_secret' => TWITTER_COMSUMER_SECRET
+    ));
+    $session=Yii::app()->session;
+    $OAuth->config['user_token']  = $session['access_token']['oauth_token'];
+    $OAuth->config['user_secret'] = $session['access_token']['oauth_token_secret'];
+
+    echo $OAuth->request('POST', $OAuth->url('1/statuses/update'),array('status'=>'test'.time()));
+    $params = ($OAuth->response['response']);
   }
 
-	/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer the ID of the model to be loaded
-	 */
-	public function loadModel($id)
-	{
-		$model=Series::model()->findByPk(new MongoId($id));
-		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
-		return $model;
-	}
+  /**
+   * Returns the data model based on the primary key given in the GET variable.
+   * If the data model is not found, an HTTP exception will be raised.
+   * @param integer the ID of the model to be loaded
+   */
+  public function loadModel($id)
+  {
+    $model=Series::model()->findByPk(new MongoId($id));
+    if($model===null)
+      throw new CHttpException(404,'The requested page does not exist.');
+    return $model;
+  }
 
-	/**
-	 * Performs the AJAX validation.
-	 * @param CModel the model to be validated
-	 */
-	protected function performAjaxValidation($model)
-	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='series-form')
-		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
-	}
+  /**
+   * Performs the AJAX validation.
+   * @param CModel the model to be validated
+   */
+  protected function performAjaxValidation($model)
+  {
+    if(isset($_POST['ajax']) && $_POST['ajax']==='series-form')
+    {
+      echo CActiveForm::validate($model);
+      Yii::app()->end();
+    }
+  }
 }

@@ -26,7 +26,11 @@ $this->menu=array(
 <?php foreach($model->getCheckedPrograms() as $program):?>
 <?php echo date('m/d H:i', $program->StTime)?>
 <?php echo ($program->ChName)?>
-<?php echo ($program->Title)?><br>
+<?php echo ($program->Title)?>
+
+#<?php echo ($program->Count)?>
+<?php echo ($program->SubTitle)?>
+<br>
 <?php endforeach?>
 <?php foreach($model->checklist as $conditions):?>
 <?php echo json_encode($conditions)?><br>
