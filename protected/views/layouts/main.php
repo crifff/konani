@@ -1,69 +1,59 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="language" content="en" />
-
-    <!-- blueprint CSS framework -->
-    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
-    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
-    <!--[if lt IE 8]>
-    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
-    <![endif]-->
-
-    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
-    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
-
-    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
+<!DOCTYPE html>
+<html lang="ja">
+> /Users/hossy/project/konani/protected/views/cour/
+    <meta charset="utf-8">
+    <title><?php echo CHtml::encode(Yii::app()->name); ?></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
   </head>
-
-  <body>
-    <?php $this->widget('zii.widgets.CMenu',array(
-    'items'=>array(
-    array('label'=>'Sign in with Twitter', 'url'=>array('/site/twitterlogin'), 'visible'=>Yii::app()->user->isGuest),
-//    array('label'=>'Sign in with Facebook', 'url'=>array('/site/facebooklogin'), 'visible'=>Yii::app()->user->isGuest),
-//    array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-    array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-    ),
-    )); ?>
-    <div class="container" id="page">
-
-      <div id="header">
-        <div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
-      </div><!-- header -->
-
-      <div id="mainmenu">
-        <?php $this->widget('zii.widgets.CMenu',array(
-        'items'=>array(
-        array('label'=>'Home', 'url'=>array('/site/index')),
-        array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-        array('label'=>'User', 'url'=>array('user/index')),
-        array('label'=>'Program', 'url'=>array('program/index')),
-        array('label'=>'Series', 'url'=>array('series/index')),
-        array('label'=>'Season', 'url'=>array('cour/index','year'=>2012,'cour'=>2)),
-        array('label'=>'Contact', 'url'=>array('/site/contact')),
-        array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-        array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-        ),
-        )); ?>
-      </div><!-- mainmenu -->
-      <?php if(isset($this->breadcrumbs)):?>
-      <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-      'links'=>$this->breadcrumbs,
-      )); ?><!-- breadcrumbs -->
+  <body data-spy="scroll" data-target=".subnav" data-offset="50">
+<div class="container">
+    <header>
+<div class="row">
+  <div class="span10"><h1><?php echo CHtml::encode(Yii::app()->name); ?></h1></div>
+  <div class="span2">
+      <?php if(Yii::app()->user->isGuest):?>
+      <?php echo CHtml::link('Sign in with Twitter',array('site/twitterlogin'),array('class'=>'btn btn-primary'))?>
+      <?php else:?>
+      <?php echo Yii::app()->session['twitter_user']->screen_name?>
+      <?php echo CHtml::image(Yii::app()->session['twitter_user']->profile_image_url_https,'')?>
       <?php endif?>
+  </div>
+</div>
 
-      <?php echo $content; ?>
+      <?php if(isset($this->breadcrumbs)):?>
+<?php $this->widget('zii.widgets.CBreadcrumbs', array(
+  'links'=>$this->breadcrumbs,
+)); ?>
+      <?php endif?>
+    </header>
 
-      <div class="clear"></div>
 
-      <div id="footer">
-        Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
-        All Rights Reserved.<br/>
-        <?php echo Yii::powered(); ?>
-      </div><!-- footer -->
 
-    </div><!-- page -->
-
+    <?php echo $content; ?>
+<?php $this->widget('zii.widgets.CMenu',array(
+  'items'=>array(
+    array('label'=>'Home', 'url'=>array('/site/index')),
+    array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
+    array('label'=>'User', 'url'=>array('user/index')),
+    array('label'=>'Program', 'url'=>array('program/index')),
+    array('label'=>'Series', 'url'=>array('series/index')),
+    array('label'=>'Season', 'url'=>array('cour/index','year'=>2012,'cour'=>2)),
+    array('label'=>'Contact', 'url'=>array('/site/contact')),
+    array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+    array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+  ),
+)); ?>
+    <footer>
+      author: @crifff<br />
+      <?php echo Yii::powered(); ?>
+    </footer>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="/css/bootstrap/js/bootstrap.js"></script>
+</div>
   </body>
 </html>
+

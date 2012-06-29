@@ -4,10 +4,16 @@ $this->breadcrumbs=array(
 );
 ?>
 
-<h1>Series</h1>
+  <h1><?php echo $year?>/<?php echo $season?></h1>
 
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-  )
-); ?>
+<ul class="nav nav-tabs nav-stacked">
+  <?php foreach($series as $program):?>
+  <li>
+  <?php echo CHtml::link(
+    $program->Title
+    ,
+    array('series/view','id'=>$program->TID)
+  )?>
+  </li>
+  <?php endforeach?>
+</ul>

@@ -13,34 +13,20 @@ $this->menu=array(
 );
 ?>
 
-<h1>View Series #<?php echo $model->_id; ?></h1>
-
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'TID',
-		'Title',
-		'ShortTitle',
-		'TitleYomi',
-		'TitleEN',
-		'Comment',
-		'cat',
-		'TitleFlag',
-		'FirstYear',
-		'FirstMonth',
-		'FirstEndYear',
-		'FirstEndMonth',
-		'FirstCh',
-		'Keywords',
-		'SubTitles',
-		'_id',
-	),
-)); ?>
-
+<h1><?php echo $model->Title; ?></h1>
+<ul class="nav nav-tabs nav-stacked">
 <?php foreach($programs as $program):?>
-<?php echo date('Y-m-d H:i',$program->StTime)?>
- <?php echo CHtml::encode($program->ChName)?> 
- <?php echo CHtml::encode($program->SubTitle)?>
- <?php echo CHtml::ajaxButton($program->ChName,array('series/check', 'tid' => $model->TID, 'chid' => $program->ChID))?>
-<br>
+<li>
+ <?php echo CHtml::ajaxLink(
+      date('m/d H:i',$program->StTime).' '.
+      ($program->isAttention()?CHtml::tag('span',array('class'=>'label label-warning'),'注'):'').
+      ($program->isFirst()?CHtml::tag('span',array('class'=>'label label-important'),'新'):'').
+      ($program->isLast()?CHtml::tag('span',array('class'=>'label label-important'),'終'):'').
+      ($program->isRepeat()?CHtml::tag('span',array('class'=>'label label-success'),'再'):'').
+      $program->Title.' '.
+      CHtml::tag('span',array('class'=>'label'),$program->ChName)
+      ,array('series/check', 'tid' => $model->TID, 'chid' => $program->ChID)
+    )?>
+ </li>
 <?php endforeach?>
+</ul>

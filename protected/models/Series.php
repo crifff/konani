@@ -64,6 +64,28 @@ class Series extends EMongoDocument
     return array(
     );
   }
+  public function season($season,$year='')
+  {
+    if(empty($year))
+      $year=date('Y');
+
+    $criteria=$this->getDbCriteria();
+    $criteria->addCond('FirstYear','equals',(string)$year);
+    $criteria->addCond('FirstMonth','in',Cour::seasonMonthArray($season));
+    $this->setDbCriteria($criteria);
+
+    return $this;
+  }
+
+  public function konki()
+  {
+    return $this->season('current');
+  }
+
+  public function raiki()
+  {
+    return $this->season('next');
+  }
 
   public function attributeLabels()
   {
@@ -95,4 +117,5 @@ class Series extends EMongoDocument
     ));
     return $programs;
   }
+
 }

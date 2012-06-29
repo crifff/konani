@@ -82,6 +82,13 @@ class Program extends EMongoDocument
   {
     return array(
       'newer'=>array('sort'=>array('StTime'=>EMongoCriteria::SORT_ASC)),
+      'beforeOneHour'=>array(
+        'conditions'=>array(
+          'StTime'=>array(
+            'greaterEq'=>(string)(time()-(60*60))
+          )
+        )
+      ),
       'yet'=>array(
         'conditions'=>array(
           'StTime'=>array(
@@ -89,7 +96,70 @@ class Program extends EMongoDocument
           )
         )
       ),
+      'oneWeek'=>array(
+        'conditions'=>array(
+          'StTime'=>array(
+            '<'=>(string)(time()+(60*60*24*7))
+          )
+        )
+      ),
+      'oneDay'=>array(
+        'conditions'=>array(
+          'StTime'=>array(
+            '<'=>(string)(time()+(60*60*24))
+          )
+        )
+      ),
     );
+  }
+
+
+  public function checkedByList($checklist)
+  {
+    if(count($checklist)===0)
+      return array();
+
+    $criteria=$this->getDbCriteria();
+    foreach($checklist as $conditions){
+      $criteria->addCond(null,'or',$conditions);
+    }
+    $criteria->sort('StTime',1);
+    $this->setDbCriteria($criteria);
+
+    return $this;
+  }
+
+  public function checkedByUser($user)
+  {
+    return $this->checkedByList($user->checklist);
+  }
+
+  public function season($season,$year='')
+  {
+    if(empty($year))
+      $year=date('Y');
+
+    $programs=Series::model()->season($season,$year)->findAll();
+    $ids=array();
+    foreach($programs as $program)
+    {
+      $ids[]=(string)$program->TID;
+    }
+    $criteria=$this->getDbCriteria();
+    $criteria->addCond('TID','in',$ids);
+    $this->setDbCriteria($criteria);
+
+    return $this;
+  }
+
+  public function konki()
+  {
+    return $this->season('current');
+  }
+  
+  public function raiki()
+  {
+    return $this->season('next');
   }
 
   public function attributeLabels()
@@ -113,6 +183,32 @@ class Program extends EMongoDocument
         $values[$key] = '';
     }
     return parent::setAttributes($values);
+  }
+
+  public static function getTodayPrograms()
+  {
+    $programs=Series::model()->konki()->findAll();
+    $criteria = new EMongoCriteria;
+    $criteria->addCond('StTime','>',(string)(time()-(60*60)));
+    $criteria->sort('StTime',1);
+    return self::model()->konki()->oneDay()->findAll($criteria);
+  }
+
+  public function isAttention()
+  {
+    return $this->Flag & 0x01;
+  }
+  public function isFirst()
+  {
+    return $this->Flag & 0x02;
+  }
+  public function isLast()
+  {
+    return $this->Flag & 0x04;
+  }
+  public function isRepeat()
+  {
+    return $this->Flag & 0x08;
   }
 
 }

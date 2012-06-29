@@ -7,7 +7,7 @@ require_once dirname(__FILE__).'/../../../../.konani';
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'konkinoani.me',
+	'name'=>'今期のアニメ ver.α',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -48,7 +48,8 @@ return array(
       'caseSensitive'=>false,  
       'rules'=>array(
         '/'=>'site/index',
-        'season/<year:\d+>/<cour:\d+>'=>'cour/index',
+        'season/<year:\d*>/?<season:(winter|spring|summer|autumn|next|current)>'=>'cour/index',
+        'user/<id:\w+>'=>'user/view',
         '<controller:\w+>/'=>'<controller>/index',
         '<controller:\w+>/<action:\w+>/<id:\w+>'=>'<controller>/<action>',
         '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',

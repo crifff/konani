@@ -13,8 +13,8 @@ $this->menu=array(
 );
 ?>
 
-<h1>View User #<?php echo $model->_id; ?></h1>
-
+<h2>@<?php echo $model->twitter_id; ?></h2>
+<!--
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
@@ -23,15 +23,20 @@ $this->menu=array(
 		'_id',
 	),
 )); ?>
-<?php foreach($model->getCheckedPrograms() as $program):?>
-<?php echo date('m/d H:i', $program->StTime)?>
-<?php echo ($program->ChName)?>
-<?php echo ($program->Title)?>
+-->
+<ul class="nav nav-tabs">
+  <li class="active">
+    <a href="#">放送予定</a>
+  </li>
+  <li><a href="#">チェックリスト</a></li>
+</ul>
 
-#<?php echo ($program->Count)?>
-<?php echo ($program->SubTitle)?>
-<br>
-<?php endforeach?>
+<?php $this->widget('zii.widgets.CListView', array(
+	'dataProvider'=>$dataProvider,
+	'itemsTagName'=>'ul',
+	'itemView'=>'/program/_view',
+	'itemsCssClass'=>'nav nav-tabs nav-stacked',
+)); ?>
 <?php foreach($model->checklist as $conditions):?>
 <?php echo json_encode($conditions)?><br>
 <?php endforeach?>

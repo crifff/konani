@@ -27,7 +27,17 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
-    $this->render('index');
+    $programsProvider=new EMongoDocumentDataProvider(
+      Program::model()->konki()->beforeOneHour()->oneDay(),
+      array(
+        'pagination'=>array(
+          'pageSize'=>20,
+        ),
+      )
+    );
+    $this->render('index',array(
+      'dataProvider'=>$programsProvider
+    ));
   }
 
   /**

@@ -3,12 +3,6 @@
 class CourController extends Controller
 {
 	/**
-	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
-	 * using two-column layout. See 'protected/views/layouts/column2.php'.
-	 */
-	public $layout='//layouts/column2';
-
-	/**
 	 * @return array action filters
 	 */
 	public function filters()
@@ -127,28 +121,13 @@ class CourController extends Controller
 	 */
 	public function actionIndex()
 	{
-    $cours=array(
-      array('1','2','3'),
-      array('4','5','6'),
-      array('7','8','9'),
-      array('10','11','12'),
-    );
-    $criteria = new EMongoCriteria;
-    $criteria->addCond('FirstYear','==','2012');
-    $dataProvider=new EMongoDocumentDataProvider('Series',
-      array(
-        'criteria'=>array(
-          'conditions'=>array(
-            'FirstYear'=>array('equals'=>$_GET['year']),
-            'FirstMonth'=>array('in'=>$cours[$_GET['cour']])
-          ),
-        ),
-        'pagination'=>array(
-          'pageSize'=>50
-        ),
-      ));
+    $year=empty($_GET['season'])?:date('Y');
+    $series=Series::model()->season($_GET['season'],$year)->findAll();
+    $cour=new Cour;
     $this->render('index',array(
-      'dataProvider'=>$dataProvider,
+      'year'=>$year,
+      'season'=>$_GET['season'],
+      'series'=>$series,
     ));
   }
 

@@ -6,7 +6,6 @@ class SeriesController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
 
 	/**
 	 * @return array action filters
@@ -50,7 +49,6 @@ class SeriesController extends Controller
 	 */
 	public function actionView($id)
 	{
-    var_dump(Yii::app()->user->OAuth);exit;
     $series=$this->loadModel($id);
     $programs=$series->getChannels();
 		$this->render('view',array(
@@ -183,7 +181,8 @@ class SeriesController extends Controller
    */
   public function loadModel($id)
   {
-    $model=Series::model()->findByPk(new MongoId($id));
+    //$model=Series::model()->findByPk(new MongoId($id));
+    $model=Series::model()->findByAttributes(array('TID'=>$id));
     if($model===null)
       throw new CHttpException(404,'The requested page does not exist.');
     return $model;
