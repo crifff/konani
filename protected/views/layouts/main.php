@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ja">
-> /Users/hossy/project/konani/protected/views/cour/
     <meta charset="utf-8">
     <title><?php echo CHtml::encode(Yii::app()->name); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
