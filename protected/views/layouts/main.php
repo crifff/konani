@@ -12,13 +12,13 @@
 <div class="container">
     <header>
 <div class="row">
-  <div class="span10"><h1><?php echo CHtml::encode(Yii::app()->name); ?></h1></div>
+  <div class="span10"><h1><?php echo CHtml::link(Yii::app()->name,'/'); ?></h1></div>
   <div class="span2">
       <?php if(Yii::app()->user->isGuest):?>
       <?php echo CHtml::link('Sign in with Twitter',array('site/twitterlogin'),array('class'=>'btn btn-primary'))?>
       <?php else:?>
-      <?php echo Yii::app()->session['twitter_user']->screen_name?>
-      <?php echo CHtml::image(Yii::app()->session['twitter_user']->profile_image_url_https,'')?>
+      <?php echo CHtml::link(Yii::app()->session['twitter_user']->screen_name, array('user/view','id'=>Yii::app()->session['twitter_user']->screen_name))?>
+      <?php echo CHtml::link(CHtml::image(Yii::app()->session['twitter_user']->profile_image_url_https,''),array('user/view','id'=>Yii::app()->session['twitter_user']->screen_name))?>
       <?php endif?>
   </div>
 </div>
@@ -33,6 +33,7 @@
 
 
     <?php echo $content; ?>
+<!--
 <?php $this->widget('zii.widgets.CMenu',array(
   'items'=>array(
     array('label'=>'Home', 'url'=>array('/site/index')),
@@ -46,8 +47,9 @@
     array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
   ),
 )); ?>
+-->
     <footer>
-      author: @crifff<br />
+      author: <a href="https://twitter.com/crifff/" target="_blank">@crifff</a><br />
       <?php echo Yii::powered(); ?>
     </footer>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>

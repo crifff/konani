@@ -1,7 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-	'Users'=>array('index'),
-	$model->_id,
+	'User',
 );
 
 $this->menu=array(
@@ -37,6 +36,3 @@ $this->menu=array(
 	'itemView'=>'/program/_view',
 	'itemsCssClass'=>'nav nav-tabs nav-stacked',
 )); ?>
-<?php foreach($model->checklist as $conditions):?>
-<?php echo json_encode($conditions)?><br>
-<?php endforeach?>
