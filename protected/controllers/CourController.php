@@ -123,7 +123,12 @@ class CourController extends Controller
 	{
     $year=empty($_GET['season'])?:date('Y');
     $series=Series::model()->season($_GET['season'],$year)->findAll();
-    $cour=new Cour;
+    if(!Yii::app()->user->isGuest)
+    {
+      $user = User::model()->findByAttributes( array( 'twitter_id'=>Yii::app()->session['twitter_user']->screen_name));
+      if($user)
+        $user->marking($series);
+    }
     $this->render('index',array(
       'year'=>$year,
       'season'=>$_GET['season'],

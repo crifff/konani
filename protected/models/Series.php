@@ -17,6 +17,8 @@ class Series extends EMongoDocument
   public $Keywords;
   public $SubTitles;
 
+  public $isChecked;
+
 	public function primaryKey()
 	{
 		return '_id'; 

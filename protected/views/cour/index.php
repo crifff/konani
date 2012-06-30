@@ -11,6 +11,7 @@ $this->breadcrumbs=array(
   <li>
   <?php echo CHtml::link(
     $program->Title
+    .'<span style="float:right" class="check">'.($program->isChecked?'✔':'').'</span>'
     ,
     array('series/view','id'=>$program->TID)
   )?>

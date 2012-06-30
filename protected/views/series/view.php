@@ -17,6 +17,17 @@ $this->menu=array(
 <ul class="nav nav-tabs nav-stacked">
 <?php foreach($programs as $program):?>
 <li class="series_<?php echo CHtml::encode($program->ChID)?>_<?php echo CHtml::encode($program->TID)?>">
+<?php if(Yii::app()->user->isGuest):?>
+<?php echo CHtml::link(
+      date('m/d H:i',$program->StTime).' '.
+      ($program->isAttention()?CHtml::tag('span',array('class'=>'label label-warning'),'注'):'').
+      ($program->isFirst()?CHtml::tag('span',array('class'=>'label label-important'),'新'):'').
+      ($program->isLast()?CHtml::tag('span',array('class'=>'label label-important'),'終'):'').
+      ($program->isRepeat()?CHtml::tag('span',array('class'=>'label label-success'),'再'):'').
+      $program->Title
+      ,'#'
+    )?>
+<?php else:?>
  <?php echo CHtml::ajaxLink(
       date('m/d H:i',$program->StTime).' '.
       ($program->isAttention()?CHtml::tag('span',array('class'=>'label label-warning'),'注'):'').
@@ -29,6 +40,7 @@ $this->menu=array(
       ,array('series/check', 'tid' => $model->TID, 'chid' => $program->ChID)
       ,array('replace'=>'.series_'.$program->ChID.'_'.$program->TID.' .check')
     )?>
+<?php endif?>
  </li>
 <?php endforeach?>
 </ul>

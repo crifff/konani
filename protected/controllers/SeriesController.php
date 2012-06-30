@@ -51,11 +51,12 @@ class SeriesController extends Controller
 	{
     $series=$this->loadModel($id);
     $programs=$series->getChannels();
-    $user = User::model()->findByAttributes(
-      array( 'twitter_id'=>Yii::app()->session['twitter_user']->screen_name)
-    );
-    if($user)
-      $user->marking($programs);
+    if(!Yii::app()->user->isGuest)
+    {
+      $user = User::model()->findByAttributes( array( 'twitter_id'=>Yii::app()->session['twitter_user']->screen_name));
+      if($user)
+        $user->marking($programs);
+    }
 		$this->render('view',array(
 			'model'=>$series,
 			'programs'=>$programs,

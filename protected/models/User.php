@@ -117,7 +117,10 @@ class User extends EMongoDocument
     foreach($checklist as $key=>$program)
     {
       $checklist[$key]->isChecked=false;
-      $tmp=array('TID'=>$program->TID,'ChID'=>$program->ChID);
+      if(get_class($program)==='Series')
+        $tmp=array('TID'=>$program->TID);
+      else
+        $tmp=array('TID'=>$program->TID,'ChID'=>$program->ChID);
       if($this->isCheckedSeries($tmp))
         $checklist[$key]->isChecked=true;
     }
@@ -125,8 +128,21 @@ class User extends EMongoDocument
 
   public function isCheckedSeries($condition)
   {
-    ksort($condition);
-    $key=implode('_', $condition);
-    return array_key_exists($key, $this->checklist);
+    if(count($condition)===1)
+    {
+      foreach($this->checklist as $program)
+      {
+        $var=key($condition);
+        if($program[$var]===$condition[$var])
+          return true;
+      }
+    }
+    else
+    {
+      ksort($condition);
+      $key=implode('_', $condition);
+      return array_key_exists($key, $this->checklist);
+    }
+    return false;
   }
 }
