@@ -130,6 +130,8 @@ class User extends EMongoDocument
 
   public function isCheckedSeries($condition)
   {
+    if($this->checklist===null)
+      $this->checklist=array();
     if(count($condition)===1)
     {
       foreach($this->checklist as $program)
