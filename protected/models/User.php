@@ -58,7 +58,20 @@ class User extends EMongoDocument
     if(!is_array($this->checklist))
       $this->checklist=array();
 
-    $this->checklist[]=$conditions;
+    ksort($conditions);
+    $key=implode('_', $conditions);
+    $this->checklist[$key]=$conditions;
+    return $this->save();
+  }
+
+  public function uncheck($conditions)
+  {
+    if(!is_array($this->checklist))
+      $this->checklist=array();
+
+    ksort($conditions);
+    $key=implode('_', $conditions);
+    unset($this->checklist[$key]);
     return $this->save();
   }
 
@@ -94,5 +107,26 @@ class User extends EMongoDocument
     }
     $criteria->sort('StTime',1);
     return Program::model()->findAll($criteria);
+  }
+
+  public function marking(&$checklist)
+  {
+    if(count($this->checklist)===0)
+      return false;
+
+    foreach($checklist as $key=>$program)
+    {
+      $checklist[$key]->isChecked=false;
+      $tmp=array('TID'=>$program->TID,'ChID'=>$program->ChID);
+      if($this->isCheckedSeries($tmp))
+        $checklist[$key]->isChecked=true;
+    }
+  }
+
+  public function isCheckedSeries($condition)
+  {
+    ksort($condition);
+    $key=implode('_', $condition);
+    return array_key_exists($key, $this->checklist);
   }
 }

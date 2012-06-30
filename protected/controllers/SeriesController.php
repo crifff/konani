@@ -51,6 +51,11 @@ class SeriesController extends Controller
 	{
     $series=$this->loadModel($id);
     $programs=$series->getChannels();
+    $user = User::model()->findByAttributes(
+      array( 'twitter_id'=>Yii::app()->session['twitter_user']->screen_name)
+    );
+    if($user)
+      $user->marking($programs);
 		$this->render('view',array(
 			'model'=>$series,
 			'programs'=>$programs,
@@ -154,14 +159,27 @@ class SeriesController extends Controller
   public function actionCheck()
   {
     $user = User::model()->findByAttributes(
-      array(
-        'twitter_id'=>Yii::app()->session['twitter_user']->screen_name
-      )
+      array( 'twitter_id'=>Yii::app()->session['twitter_user']->screen_name)
     );
-    return $user->check(array(
+
+    $condition=array(
       'TID' => $_GET['tid'],
       'ChID' => $_GET['chid']
-    ));
+    );
+    if($user->isCheckedSeries($condition))
+    {
+      $user->uncheck($condition);
+      echo '<span style="float:right" class="check"></span>';
+    }
+    else
+    {
+      $user->check($condition);
+      echo '<span style="float:right" class="check">✔</span>';
+    }
+    return;
+
+    
+
     $OAuth = new tmhOAuth(array(
       'consumer_key'    => TWITTER_COMSUMER_KEY,
       'consumer_secret' => TWITTER_COMSUMER_SECRET
@@ -170,7 +188,7 @@ class SeriesController extends Controller
     $OAuth->config['user_token']  = $session['access_token']['oauth_token'];
     $OAuth->config['user_secret'] = $session['access_token']['oauth_token_secret'];
 
-    echo $OAuth->request('POST', $OAuth->url('1/statuses/update'),array('status'=>'test'.time()));
+    $OAuth->request('POST', $OAuth->url('1/statuses/update'),array('status'=>'test'.time()));
     $params = ($OAuth->response['response']);
   }
 

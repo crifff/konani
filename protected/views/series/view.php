@@ -16,7 +16,7 @@ $this->menu=array(
 <h1><?php echo $model->Title; ?></h1>
 <ul class="nav nav-tabs nav-stacked">
 <?php foreach($programs as $program):?>
-<li>
+<li class="series_<?php echo CHtml::encode($program->ChID)?>_<?php echo CHtml::encode($program->TID)?>">
  <?php echo CHtml::ajaxLink(
       date('m/d H:i',$program->StTime).' '.
       ($program->isAttention()?CHtml::tag('span',array('class'=>'label label-warning'),'注'):'').
@@ -24,8 +24,10 @@ $this->menu=array(
       ($program->isLast()?CHtml::tag('span',array('class'=>'label label-important'),'終'):'').
       ($program->isRepeat()?CHtml::tag('span',array('class'=>'label label-success'),'再'):'').
       $program->Title.' '.
-      CHtml::tag('span',array('class'=>'label'),$program->ChName)
+      CHtml::tag('span',array('class'=>'label'),$program->ChName).
+      '<span style="float:right" class="check">'.($program->isChecked?'✔':'').'</span>'
       ,array('series/check', 'tid' => $model->TID, 'chid' => $program->ChID)
+      ,array('replace'=>'.series_'.$program->ChID.'_'.$program->TID.' .check')
     )?>
  </li>
 <?php endforeach?>

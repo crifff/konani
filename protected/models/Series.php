@@ -112,7 +112,7 @@ class Series extends EMongoDocument
 
   public function getChannels()
   {
-    $programs = Program::model()->newer()->yet()->findAllByAttributes(array(
+    $programs = Program::model()->yet()->findAllByAttributes(array(
       'TID'=>(string)$this->TID,
     ));
     return $programs;

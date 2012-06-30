@@ -26,6 +26,8 @@ class Program extends EMongoDocument
   public $ChURL;
   public $ChGID;
 
+  public $isChecked;
+
 	public function primaryKey()
 	{
 		return '_id'; 
@@ -42,7 +44,15 @@ class Program extends EMongoDocument
       'PID'=>array(
         'key'=>array('PID'),
         'unique'=>true
-      )
+      ),
+      'TID'=>array(
+        'key'=>array('TID'),
+        'unique'=>false
+      ),
+      'order_by_StTime'=>array(
+        'key'=>array('StTime'=>EMongoCriteria::SORT_ASC),
+        'unique'=>false
+      ),
     );
   }
 
@@ -81,7 +91,6 @@ class Program extends EMongoDocument
   public function scopes()
   {
     return array(
-      'newer'=>array('sort'=>array('StTime'=>EMongoCriteria::SORT_ASC)),
       'beforeOneHour'=>array(
         'conditions'=>array(
           'StTime'=>array(
@@ -113,6 +122,12 @@ class Program extends EMongoDocument
     );
   }
 
+  public function defualtScope()
+  {
+    return array(
+      'sort'=>array('StTime'=>EMongoCriteria::SORT_ASC)
+    );
+  }
 
   public function checkedByList($checklist)
   {
@@ -156,7 +171,7 @@ class Program extends EMongoDocument
   {
     return $this->season('current');
   }
-  
+
   public function raiki()
   {
     return $this->season('next');

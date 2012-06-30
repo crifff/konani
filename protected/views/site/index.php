@@ -9,7 +9,7 @@
   </li>
   <li><?php echo CHtml::link('来期',array('cour/index','season'=>'next'))?></li>
       <?php if(!Yii::app()->user->isGuest):?>
-  <li><?php echo CHtml::link('マイリスト',array('user/index','id'=>Yii::app()->session['twitter_user']->screen_name))?></li>
+  <li><?php echo CHtml::link('マイリスト',array('user/view','id'=>Yii::app()->session['twitter_user']->screen_name))?></li>
       <?php endif?>
 </ul>
  

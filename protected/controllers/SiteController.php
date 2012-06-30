@@ -28,7 +28,7 @@ class SiteController extends Controller
 	public function actionIndex()
 	{
     $programsProvider=new EMongoDocumentDataProvider(
-      Program::model()->konki()->beforeOneHour()->oneDay(),
+      Program::model()->konki()->beforeOneHour()->oneWeek(),
       array(
         'pagination'=>array(
           'pageSize'=>20,
