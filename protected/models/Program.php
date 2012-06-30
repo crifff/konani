@@ -43,15 +43,12 @@ class Program extends EMongoDocument
     return array(
       'unique_PID'=>array(
         'key'=>array('PID'),
-        'unique'=>true
       ),
       'unique_TID'=>array(
         'key'=>array('TID'),
-        'unique'=>false
       ),
       'order_by_StTime'=>array(
         'key'=>array('StTime'=>EMongoCriteria::SORT_ASC),
-        'unique'=>false
       ),
     );
   }

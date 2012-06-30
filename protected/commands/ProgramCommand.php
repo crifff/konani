@@ -18,7 +18,7 @@ class ProgramCommand extends CConsoleCommand
         $program = new Program;
         $program->attributes=(array)$r;
         $program->save();
-        echo 'save '.$program->Title."\n";
+        //echo 'save '.$program->Title."\n";
       }
       else
       {
