@@ -41,11 +41,11 @@ class Program extends EMongoDocument
   public function indexes()
   {
     return array(
-      'PID'=>array(
+      'unique_PID'=>array(
         'key'=>array('PID'),
         'unique'=>true
       ),
-      'TID'=>array(
+      'unique_TID'=>array(
         'key'=>array('TID'),
         'unique'=>false
       ),

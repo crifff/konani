@@ -2,16 +2,23 @@
 class ProgramCommand extends CConsoleCommand
 {
   public function run($args) {
-    $data=json_decode(file_get_contents('http://cal.syoboi.jp/rss2.php?alt=json&days=14&count=1000&'));
+    if(isset($args[0]))
+      $start=date('YmdHi',strtotime($args[0]));
+    else
+      $start=date('YmdHi');
+
+    $url='http://cal.syoboi.jp/rss2.php?alt=json&days=7&start='.$start;
+    $data=json_decode(file_get_contents($url));
+    echo 'download '.$url."\n"; 
     foreach($data->items as $r){
-      $program = Program::model()->findByAttributes(array('PID'=>$r->PID));
+      $program = Program::model()->findByAttributes(array('PID'=>(string)$r->PID));
 
       if(!$program)
       {
         $program = new Program;
         $program->attributes=(array)$r;
         $program->save();
-        //echo 'save '.$program->Title."\n";
+        echo 'save '.$program->Title."\n";
       }
       else
       {
