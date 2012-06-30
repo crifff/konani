@@ -129,7 +129,7 @@ class Program extends EMongoDocument
   public function checkedByList($checklist)
   {
     if(count($checklist)===0)
-      return array();
+      $checklist=array(array('TID'=>false));//結果が空になるクエリ
 
     $criteria=$this->getDbCriteria();
     foreach($checklist as $conditions){
