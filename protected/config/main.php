@@ -75,8 +75,10 @@ return array(
       'class'=>'CLogRouter',
       'routes'=>array(
         array(
-          'class'=>'CFileLogRoute',
-          'levels'=>'error, warning',
+          'class'=>'ext.EMongoDbLogRoute.EMongoDbLogRoute',
+          'levels'=>'info, error, warning',
+          //初回だけ実行させる
+          //'installCappedCollection' => true,
         ),
       ),
     ),

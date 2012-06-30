@@ -49,6 +49,7 @@ class UserController extends Controller
 	 */
 	public function actionView($id)
   {
+    Yii::log('renderView','info','application.controller.user');
     $model=$this->loadModel($id);
     $checkedProgramsProvider=new EMongoDocumentDataProvider(
       Program::model()->beforeOneHour()->checkedByUser($model),

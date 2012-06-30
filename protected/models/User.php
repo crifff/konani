@@ -61,6 +61,7 @@ class User extends EMongoDocument
     ksort($conditions);
     $key=implode('_', $conditions);
     $this->checklist[$key]=$conditions;
+    Yii::log($this->twitter_id.' check '.$key,'info','application.model.user');
     return $this->save();
   }
 
@@ -72,6 +73,7 @@ class User extends EMongoDocument
     ksort($conditions);
     $key=implode('_', $conditions);
     unset($this->checklist[$key]);
+    Yii::log($this->twitter_id.' uncheck '.$key,'info','application.model.user');
     return $this->save();
   }
 

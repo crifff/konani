@@ -114,7 +114,6 @@ class SiteController extends Controller
     if ($ui->authenticate()) {
       $user=Yii::app()->user;
       $user->login($ui);
-      Yii::log($user->name.' logined ','info','application.controller.site');
       if(!User::model()->findByAttributes(array('twitter_id'=>$user->getName()))){
         $model = new User;
         $model->twitter_id = $user->getName();
