@@ -7,7 +7,7 @@
   <li class="active">
     <a href="#">今期のアニメ</a>
   </li>
-  <li><?php echo CHtml::link('来期',array('cour/index','season'=>'next'))?></li>
+  <li><?php echo CHtml::link('2012夏期',array('cour/index','season'=>'summer','year'=>2012))?></li>
       <?php if(!Yii::app()->user->isGuest):?>
   <li><?php echo CHtml::link('マイリスト',array('user/view','id'=>Yii::app()->session['twitter_user']->screen_name))?></li>
       <?php endif?>
