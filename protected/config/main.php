@@ -37,12 +37,12 @@ return array(
 
 	// application components
 	'components'=>array(
-		'user'=>array(
-			// enable cookie-based authentication
-			'allowAutoLogin'=>true,
-		),
-		// uncomment the following to enable URLs in path-format
-		'urlManager'=>array(
+    'user'=>array(
+      // enable cookie-based authentication
+      'allowAutoLogin'=>true,
+    ),
+    // uncomment the following to enable URLs in path-format
+    'urlManager'=>array(
       'urlFormat'=>'path',
       'showScriptName'=>false,
       'caseSensitive'=>false,  
@@ -59,7 +59,7 @@ return array(
     'mongodb' => array(
       'class'            => 'EMongoDB',
       'connectionString' => 'mongodb://localhost',
-      'dbName'           => 'test',
+      'dbName'           => 'konani',
       'fsyncFlag'        => true,
       'safeFlag'         => true,
       'useCursor'        => false

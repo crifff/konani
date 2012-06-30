@@ -12,6 +12,9 @@ return CMap::mergeArray(
           ),
         ),
       ),
-    )
+      'mongodb' => array(
+        'dbName'           => 'test',
+      ),
+    ),
   )
 );
