@@ -26,7 +26,7 @@ class UserController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','checklist'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -156,6 +156,18 @@ class UserController extends Controller
 
     $this->render('admin', array(
       'model'=>$model
+    ));
+  }
+
+  public function actionChecklist()
+  {
+    $user=$this->loadModel($_GET['id']);
+    $dataProvider=new EMongoDocumentDataProvider(
+      Series::model()->checkedByUser($user)
+    );
+    $this->render('checklist',array(
+      'dataProvider'=>$dataProvider,
+      'model'=>$user,
     ));
   }
 

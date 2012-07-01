@@ -66,6 +66,27 @@ class Series extends EMongoDocument
     return array(
     );
   }
+
+  public function checkedByList($checklist)
+  {
+    if(count($checklist)===0)
+      $checklist=array(array('TID'=>false));//結果が空になるクエリ
+
+    $criteria=$this->getDbCriteria();
+    foreach($checklist as $conditions){
+      $criteria->addCond('TID','or',$conditions['TID']);
+    }
+    $criteria->sort('StTime',1);
+    $this->setDbCriteria($criteria);
+
+    return $this;
+  }
+
+  public function checkedByUser($user)
+  {
+    return $this->checkedByList($user->checklist);
+  }
+
   public function season($season,$year='')
   {
     if(empty($year))

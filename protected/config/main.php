@@ -50,6 +50,7 @@ return array(
         '/'=>'site/index',
         'season/<year:\d*>/<season:(winter|spring|summer|autumn)>'=>'cour/index',
         'season/<season:(winter|spring|summer|autumn|next|current)>'=>'cour/index',
+        'user/<id:\w+>/checklist'=>'user/checklist',
         'user/<id:\w+>'=>'user/view',
         '<controller:\w+>/'=>'<controller>/index',
         '<controller:\w+>/<action:\w+>/<id:\w+>'=>'<controller>/<action>',
