@@ -24,7 +24,8 @@ $this->menu=array(
       ($program->isFirst()?CHtml::tag('span',array('class'=>'label label-important'),'新'):'').
       ($program->isLast()?CHtml::tag('span',array('class'=>'label label-important'),'終'):'').
       ($program->isRepeat()?CHtml::tag('span',array('class'=>'label label-success'),'再'):'').
-      $program->Title
+      $program->Title.' '.
+      CHtml::tag('span',array('class'=>'label'),$program->ChName)
       ,'#'
     )?>
 <?php else:?>
