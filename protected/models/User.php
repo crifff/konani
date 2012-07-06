@@ -20,7 +20,6 @@ class User extends EMongoDocument
     return array(
       'twitter_id'=>array(
         'key'=>array('twitter_id'),
-        'unique'=>true
       )
     );
   }
