@@ -16,6 +16,7 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+		'application.components.helpers.*',
 		'ext.YiiMongoDbSuite14.*',
 		'ext.TwitterExtension4Yii.*',
 		'ext.TwitterExtension4Yii.lib.*',

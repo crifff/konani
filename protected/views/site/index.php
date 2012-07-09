@@ -13,12 +13,13 @@
       <?php endif?>
 </ul>
  
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemsTagName'=>'ul',
-	'itemView'=>'/program/_view',
-	'itemsCssClass'=>'nav nav-tabs nav-stacked',
-)); ?>
+  <?php $this->widget('zii.widgets.CListView', array(
+    'dataProvider'=>$dataProvider,
+    'itemsTagName'=>'ul',
+    'itemView'=>'/program/_view',
+    'itemsCssClass'=>'nav nav-tabs nav-stacked',
+    'summaryText'=>'<span id="clock"></span>',
+  )); ?>
  
   </div>
 </div>

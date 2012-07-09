@@ -11,4 +11,5 @@
 	'itemsTagName'=>'ul',
 	'itemView'=>'/program/_view',
 	'itemsCssClass'=>'nav nav-tabs nav-stacked',
+  'summaryText'=>'<span id="clock"></span>',
 )); ?>
