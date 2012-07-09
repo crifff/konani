@@ -67,7 +67,8 @@ return array(
       'useCursor'        => false
     ),
     'session'=>array(
-      'class'=>'ext.EMongoDbHttpSession.EMongoDbHttpSession'
+      'class'=>'ext.EMongoDbHttpSession.EMongoDbHttpSession',
+      'timeout'=>60*60*24*7,
     ),
     'errorHandler'=>array(
       // use 'site/error' action to display errors
