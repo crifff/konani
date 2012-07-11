@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'Series'=>array('index'),
-	$model->Title,
+//	'Series'=>array('index'),
+//	$model->Title,
 );
 
 $this->menu=array(
@@ -13,6 +13,7 @@ $this->menu=array(
 );
 ?>
 
+<p>番組名とチャンネルの組み合わせでチェックリストに登録できます</p>
 <h1><?php echo $model->Title; ?></h1>
 <ul class="nav nav-tabs nav-stacked">
 <?php foreach($programs as $program):?>

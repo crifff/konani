@@ -27,8 +27,9 @@
          <?php if(Yii::app()->user->isGuest):?>
            <?php echo CHtml::link('Sign in with Twitter',array('site/twitterlogin'),array('class'=>'btn btn-primary'))?>
          <?php else:?>
+           <?php echo CHtml::link(CHtml::image(Yii::app()->session['twitter_user']->profile_image_url_https,'',array('style'=>'width:40px')),array('user/view','id'=>Yii::app()->session['twitter_user']->screen_name))?>
+           <br/>
            <?php echo CHtml::link(Yii::app()->session['twitter_user']->screen_name, array('user/view','id'=>Yii::app()->session['twitter_user']->screen_name))?>
-           <?php echo CHtml::link(CHtml::image(Yii::app()->session['twitter_user']->profile_image_url_https,''),array('user/view','id'=>Yii::app()->session['twitter_user']->screen_name))?>
          <?php endif?>
        </div>
      </div>
