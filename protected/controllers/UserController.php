@@ -163,7 +163,12 @@ class UserController extends Controller
   {
     $user=$this->loadModel($_GET['id']);
     $dataProvider=new EMongoDocumentDataProvider(
-      Series::model()->checkedByUser($user)
+      Series::model()->checkedByUser($user),
+      array(
+        'pagination'=>array(
+          'pageSize'=>50,
+        ),
+      )
     );
     $this->render('checklist',array(
       'dataProvider'=>$dataProvider,
