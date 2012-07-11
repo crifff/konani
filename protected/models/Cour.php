@@ -25,13 +25,7 @@ class Cour extends CModel
 
     if($season=='next')
     {
-      $nextSeasons=array(
-        'winter'=>'spring',
-        'spring'=>'summer',
-        'summer'=>'autumn',
-        'autumn'=>'winter',
-      );
-      $season=$nextSeasons[self::currentSeason()];
+      $season=self::getNextSeason(self::currentSeason());
     }
 
     return self::$cours[$season];
@@ -46,5 +40,48 @@ class Cour extends CModel
       '夏'=>'summer',
       '秋'=>'autumn',
     );
+  }
+
+  public static function seasonName($label)
+  {
+    return array_search($label, self::seasonLabel());
+  }
+
+  public static function getNextSeason($season)
+  {
+      $nextSeasons=array(
+        'winter'=>'spring',
+        'spring'=>'summer',
+        'summer'=>'autumn',
+        'autumn'=>'winter',
+      );
+      return $nextSeasons[$season];
+  }
+
+  public static function getNextSeasonUrl($year, $season)
+  {
+    if($season==='autumn')
+      $year++;
+    $season=self::getNextSeason($season);
+    return Yii::app()->createUrl('cour/index',array('year'=>$year,'season'=>$season));
+  }
+  
+  public static function getBeforeSeason($season)
+  {
+      $beforeSeasons=array(
+        'winter'=>'autumn',
+        'spring'=>'winter',
+        'summer'=>'spring',
+        'autumn'=>'summer',
+      );
+      return $beforeSeasons[$season];
+  }
+
+  public static function getbeforeSeasonUrl($year, $season)
+  {
+    if($season==='winter')
+      $year--;
+    $season=self::getBeforeSeason($season);
+    return Yii::app()->createUrl('cour/index',array('year'=>$year,'season'=>$season));
   }
 }

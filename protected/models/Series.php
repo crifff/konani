@@ -49,6 +49,7 @@ class Series extends EMongoDocument
       ,Keywords
       ,SubTitles
       ,_id
+      ,isChecked
       ',
       'safe'),
     );

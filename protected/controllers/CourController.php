@@ -117,7 +117,7 @@ class CourController extends Controller
 	 */
 	public function actionIndex()
 	{
-    $year=empty($_GET['season'])?:date('Y');
+    $year=($_GET['year'])?:date('Y');
     $series=Series::model()->season($_GET['season'],$year)->findAll();
     if(!Yii::app()->user->isGuest)
     {
@@ -126,7 +126,7 @@ class CourController extends Controller
         $user->marking($series);
     }
     $this->render('index',array(
-      'year'=>$year,
+      'year'=>$_GET['year'],
       'season'=>$_GET['season'],
       'series'=>$series,
     ));
