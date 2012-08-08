@@ -2,6 +2,7 @@
 class ProgramListHelper
 {
   static $date=0;
+  static $weekday = array( "日", "月", "火", "水", "木", "金", "土" );
   static public function item($data)
   {
     $date=date('Ymd',$data->StTime-60*60*6);
@@ -13,8 +14,10 @@ class ProgramListHelper
 
       $header=CHtml::tag('li',
         array('class'=>'nav-header'), 
-        date('n/d(D)',$data->StTime)
+        date('n/d',$data->StTime-60*60*6).
+        '('.self::$weekday[date('w',$data->StTime-60*60*6)].')'
       );
+
     }
 
     $str='';
@@ -30,6 +33,8 @@ class ProgramListHelper
       $str.=CHtml::tag('span',array('class'=>'label label-success'),'再');
 
     $str.=$data->Title.' ';
+    $str.='#'.$data->Count;
+    $str.='「'.$data->SubTitle.'」 ';
     $str.=CHtml::tag('span',array('class'=>'label'),$data->ChName);
 
     $str= CHtml::tag('li',array(),
