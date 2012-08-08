@@ -4,8 +4,8 @@
   <li class="active"><?php echo CHtml::link('チェックリスト',array('user/checklist','id'=>$model->twitter_id))?></li>
 </ul>
 <?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemsTagName'=>'ul',
-	'itemView'=>'/series/_view',
-	'itemsCssClass'=>'nav nav-tabs nav-stacked',
+    'dataProvider'=>$dataProvider,
+    'itemsTagName'=>'ul',
+    'itemView'=>'/series/_view',
+    'itemsCssClass'=>'nav nav-tabs nav-stacked',
 )); ?>

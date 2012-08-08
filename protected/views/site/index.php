@@ -12,7 +12,7 @@
   <li><?php echo CHtml::link('マイリスト',array('user/view','id'=>Yii::app()->session['twitter_user']->screen_name))?></li>
       <?php endif?>
 </ul>
- 
+
   <?php $this->widget('zii.widgets.CListView', array(
     'dataProvider'=>$dataProvider,
     'itemsTagName'=>'ul',
@@ -20,6 +20,6 @@
     'itemsCssClass'=>'nav nav-tabs nav-stacked',
     'summaryText'=>'<span id="clock"></span>',
   )); ?>
- 
+
   </div>
 </div>

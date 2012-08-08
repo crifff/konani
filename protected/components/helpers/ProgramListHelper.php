@@ -1,19 +1,18 @@
 <?php
 class ProgramListHelper
 {
-  static $date=0;
-  static $weekday = array( "日", "月", "火", "水", "木", "金", "土" );
-  static public function item($data)
+  public static $date=0;
+  public static $weekday = array( "日", "月", "火", "水", "木", "金", "土" );
+  public static function item($data)
   {
     $date=date('Ymd',$data->StTime-60*60*6);
     $header='';
 
-    if(self::$date != $date)
-    {
+    if (self::$date != $date) {
       self::$date = $date;
 
       $header=CHtml::tag('li',
-        array('class'=>'nav-header'), 
+        array('class'=>'nav-header'),
         date('n/d',$data->StTime-60*60*6).
         '('.self::$weekday[date('w',$data->StTime-60*60*6)].')'
       );
@@ -40,12 +39,14 @@ class ProgramListHelper
     $str= CHtml::tag('li',array(),
       CHtml::link( $str, array('series/view','id'=>$data->TID))
     );
+
     return $header.$str;
   }
 
-  static public function over24format($timestamp)
+  public static function over24format($timestamp)
   {
     if(date('H',$timestamp)<=6)
+
       return (date('H',$timestamp)+24). date(':i',$timestamp);
     else
       return date('H:i',$timestamp);

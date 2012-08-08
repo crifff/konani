@@ -28,10 +28,10 @@ class Program extends EMongoDocument
 
   public $isChecked;
 
-	public function primaryKey()
-	{
-		return '_id'; 
-	}
+    public function primaryKey()
+    {
+        return '_id';
+    }
 
   public function getCollectionName()
   {
@@ -91,28 +91,28 @@ class Program extends EMongoDocument
       'beforeOneHour'=>array(
         'conditions'=>array(
           'StTime'=>array(
-            'greaterEq'=>(string)(time()-(60*60))
+            'greaterEq'=>(string) (time()-(60*60))
           )
         )
       ),
       'yet'=>array(
         'conditions'=>array(
           'StTime'=>array(
-            'greaterEq'=>(string)time()
+            'greaterEq'=>(string) time()
           )
         )
       ),
       'oneWeek'=>array(
         'conditions'=>array(
           'StTime'=>array(
-            '<'=>(string)(time()+(60*60*24*7))
+            '<'=>(string) (time()+(60*60*24*7))
           )
         )
       ),
       'oneDay'=>array(
         'conditions'=>array(
           'StTime'=>array(
-            '<'=>(string)(time()+(60*60*24))
+            '<'=>(string) (time()+(60*60*24))
           )
         )
       ),
@@ -132,7 +132,7 @@ class Program extends EMongoDocument
       $checklist=array(array('TID'=>false));//結果が空になるクエリ
 
     $criteria=$this->getDbCriteria();
-    foreach($checklist as $conditions){
+    foreach ($checklist as $conditions) {
       $criteria->addCond(null,'or',$conditions);
     }
     $criteria->sort('StTime',1);
@@ -153,9 +153,8 @@ class Program extends EMongoDocument
 
     $programs=Series::model()->season($season,$year)->findAll();
     $ids=array();
-    foreach($programs as $program)
-    {
-      $ids[]=(string)$program->TID;
+    foreach ($programs as $program) {
+      $ids[]=(string) $program->TID;
     }
     $criteria=$this->getDbCriteria();
     $criteria->addCond('TID','in',$ids);
@@ -189,11 +188,11 @@ class Program extends EMongoDocument
 
   public function setAttributes($values, $safeOnly = true)
   {
-    foreach($values as $key => $value)
-    {
+    foreach ($values as $key => $value) {
       if(is_array($value) && count($value) === 0)
         $values[$key] = '';
     }
+
     return parent::setAttributes($values);
   }
 
@@ -201,8 +200,9 @@ class Program extends EMongoDocument
   {
     $programs=Series::model()->konki()->findAll();
     $criteria = new EMongoCriteria;
-    $criteria->addCond('StTime','>',(string)(time()-(60*60)));
+    $criteria->addCond('StTime','>',(string) (time()-(60*60)));
     $criteria->sort('StTime',1);
+
     return self::model()->konki()->oneDay()->findAll($criteria);
   }
 

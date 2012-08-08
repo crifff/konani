@@ -8,7 +8,6 @@ class UserTest extends EMongoDbTestCase
     $this->assertEquals('crifff',$user->nickname);
   }
 
-
   public function testCheckTID()
   {
     $user = User::model()->findByAttributes(array('twitter_id'=>'crifff'));

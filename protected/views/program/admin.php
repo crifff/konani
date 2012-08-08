@@ -1,24 +1,26 @@
 <?php
 $this->breadcrumbs=array(
-	'Programs'=>array('index'),
-	'Manage',
+    'Programs'=>array('index'),
+    'Manage',
 );
 
 $this->menu=array(
-	array('label'=>'List Program', 'url'=>array('index')),
-	array('label'=>'Create Program', 'url'=>array('create')),
+    array('label'=>'List Program', 'url'=>array('index')),
+    array('label'=>'Create Program', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
+    $('.search-form').toggle();
+
+    return false;
 });
 $('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('program-grid', {
-		data: $(this).serialize()
-	});
-	return false;
+    $.fn.yiiGridView.update('program-grid', {
+        data: $(this).serialize()
+    });
+
+    return false;
 });
 ");
 
@@ -34,15 +36,15 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 <?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
-	'model'=>$model,
+    'model'=>$model,
 )); ?>
 </div><!-- search-form -->
 
 <?php var_dump($model)?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'program-grid',
-	'dataProvider'=>new EMongoDocumentDataProvider($model->search()->model, array(
-		'sort'=>array(
+    'id'=>'program-grid',
+    'dataProvider'=>new EMongoDocumentDataProvider($model->search()->model, array(
+        'sort'=>array(
       'attributes'=>array(
         'StTime',
         'SubTitle',
@@ -63,4 +65,4 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
       'class'=>'CButtonColumn',
     ),
   ),
-)); ?>
+));

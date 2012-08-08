@@ -11,9 +11,9 @@ class Cour extends CModel
   public static function currentSeason()
   {
     $month=date('m');
-    foreach(self::$cours as $season=>$cour)
-    {
+    foreach (self::$cours as $season=>$cour) {
       if(in_array($month,$cour))
+
         return $season;
     }
   }
@@ -23,8 +23,7 @@ class Cour extends CModel
     if($season=='current')
       $season=self::currentSeason();
 
-    if($season=='next')
-    {
+    if ($season=='next') {
       $season=self::getNextSeason(self::currentSeason());
     }
 
@@ -33,7 +32,8 @@ class Cour extends CModel
 
   public function attributeNames(){ }
 
-  public static function seasonLabel(){
+  public static function seasonLabel()
+  {
     return array(
       '冬'=>'winter',
       '春'=>'spring',
@@ -55,6 +55,7 @@ class Cour extends CModel
         'summer'=>'autumn',
         'autumn'=>'winter',
       );
+
       return $nextSeasons[$season];
   }
 
@@ -63,9 +64,10 @@ class Cour extends CModel
     if($season==='autumn')
       $year++;
     $season=self::getNextSeason($season);
+
     return Yii::app()->createUrl('cour/index',array('year'=>$year,'season'=>$season));
   }
-  
+
   public static function getBeforeSeason($season)
   {
       $beforeSeasons=array(
@@ -74,6 +76,7 @@ class Cour extends CModel
         'summer'=>'spring',
         'autumn'=>'summer',
       );
+
       return $beforeSeasons[$season];
   }
 
@@ -82,6 +85,7 @@ class Cour extends CModel
     if($season==='winter')
       $year--;
     $season=self::getBeforeSeason($season);
+
     return Yii::app()->createUrl('cour/index',array('year'=>$year,'season'=>$season));
   }
 }

@@ -1,20 +1,20 @@
 <?php
 $this->breadcrumbs=array(
-	'Programs',
+    'Programs',
 );
 
 $this->menu=array(
-	array('label'=>'Create Program', 'url'=>array('create')),
-	array('label'=>'Manage Program', 'url'=>array('admin')),
+    array('label'=>'Create Program', 'url'=>array('create')),
+    array('label'=>'Manage Program', 'url'=>array('admin')),
 );
 ?>
 
 <h1>Programs</h1>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'program-grid',
-	'dataProvider'=>new EMongoDocumentDataProvider($model->search()->model, array(
-		'sort'=>array(
+    'id'=>'program-grid',
+    'dataProvider'=>new EMongoDocumentDataProvider($model->search()->model, array(
+        'sort'=>array(
       'attributes'=>array(
         'StTime',
         'SubTitle',
@@ -30,4 +30,4 @@ $this->menu=array(
     'Title',
     'SubTitle',
   ),
-)); ?>
+));

@@ -6,38 +6,38 @@ require_once dirname(__FILE__).'/../../../../.konani';
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return array(
-	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'今期のアニメ ver.α',
+    'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
+    'name'=>'今期のアニメ ver.α',
 
-	// preloading 'log' component
-	'preload'=>array('log'),
+    // preloading 'log' component
+    'preload'=>array('log'),
 
-	// autoloading model and component classes
-	'import'=>array(
-		'application.models.*',
-		'application.components.*',
-		'application.components.helpers.*',
-		'ext.YiiMongoDbSuite14.*',
-		'ext.TwitterExtension4Yii.*',
-		'ext.TwitterExtension4Yii.lib.*',
-		'ext.EMongoDbHttpSession.*',
-	),
+    // autoloading model and component classes
+    'import'=>array(
+        'application.models.*',
+        'application.components.*',
+        'application.components.helpers.*',
+        'ext.YiiMongoDbSuite14.*',
+        'ext.TwitterExtension4Yii.*',
+        'ext.TwitterExtension4Yii.lib.*',
+        'ext.EMongoDbHttpSession.*',
+    ),
 
-	'modules'=>array(
-		// uncomment the following to enable the Gii tool
-		'gii'=>array(
-			'class'=>'system.gii.GiiModule',
-			'password'=>'hogehoge',
-		 	// If removed, Gii defaults to localhost only. Edit carefully to taste.
-			'ipFilters'=>array('127.0.0.1','::1'),
+    'modules'=>array(
+        // uncomment the following to enable the Gii tool
+        'gii'=>array(
+            'class'=>'system.gii.GiiModule',
+            'password'=>'hogehoge',
+             // If removed, Gii defaults to localhost only. Edit carefully to taste.
+            'ipFilters'=>array('127.0.0.1','::1'),
       'generatorPaths'=>array(
         'application.extensions.YiiMongoDbSuite14.gii'
       ),
-		),
-	),
+        ),
+    ),
 
-	// application components
-	'components'=>array(
+    // application components
+    'components'=>array(
     'user'=>array(
       // enable cookie-based authentication
       'allowAutoLogin'=>true,
@@ -46,7 +46,7 @@ return array(
     'urlManager'=>array(
       'urlFormat'=>'path',
       'showScriptName'=>false,
-      'caseSensitive'=>false,  
+      'caseSensitive'=>false,
       'rules'=>array(
         '/'=>'site/index',
         'season/<year:\d*>/<season:(winter|spring|summer|autumn)>'=>'cour/index',
@@ -68,8 +68,13 @@ return array(
       'useCursor'        => false
     ),
     'session'=>array(
-      'class'=>'ext.EMongoDbHttpSession.EMongoDbHttpSession',
-      'timeout'=>60*60*24*7,
+      'class'   => 'ext.EMongoDbHttpSession.EMongoDbHttpSession',
+      'dbName'  => 'konani',
+      'timeout' => 60*60*24*7,
+      'sessionName'=>'session',
+      'cookieParams'=>array(
+        'lifetime'=> 60*60*24*7,
+      ),
     ),
     'errorHandler'=>array(
       // use 'site/error' action to display errors
@@ -79,8 +84,9 @@ return array(
       'class'=>'CLogRouter',
       'routes'=>array(
         array(
-          'class'=>'ext.EMongoDbLogRoute.EMongoDbLogRoute',
-          'levels'=>'info, error, warning',
+          'class'  => 'ext.EMongoDbLogRoute.EMongoDbLogRoute',
+          'dbName' => 'konani',
+          'levels' => 'info, error, warning',
           //初回だけ実行させる
           //'installCappedCollection' => true,
         ),

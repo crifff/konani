@@ -1,24 +1,26 @@
 <?php
 $this->breadcrumbs=array(
-	'Series'=>array('index'),
-	'Manage',
+    'Series'=>array('index'),
+    'Manage',
 );
 
 $this->menu=array(
-	array('label'=>'List Series', 'url'=>array('index')),
-	array('label'=>'Create Series', 'url'=>array('create')),
+    array('label'=>'List Series', 'url'=>array('index')),
+    array('label'=>'Create Series', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
-	$('.search-form').toggle();
-	return false;
+    $('.search-form').toggle();
+
+    return false;
 });
 $('.search-form form').submit(function(){
-	$.fn.yiiGridView.update('series-grid', {
-		data: $(this).serialize()
-	});
-	return false;
+    $.fn.yiiGridView.update('series-grid', {
+        data: $(this).serialize()
+    });
+
+    return false;
 });
 ");
 
@@ -34,50 +36,50 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 <?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
-	'model'=>$model,
+    'model'=>$model,
 )); ?>
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'series-grid',
-	'dataProvider'=>new EMongoDocumentDataProvider($model->search()->model, array(
-		'sort'=>array(
-			'attributes'=>array(
-				'TID',
-				'Title',
-				'FirstYear',
-				'FirstMonth',
-				/*
-				'cat',
-				'TitleFlag',
-				'FirstEndYear',
-				'FirstEndMonth',
-				'FirstCh',
-				'Keywords',
-				'SubTitles',
-				'_id',
-				*/
-			),
-		),
-	)),
-	'filter'=>$model,
-	'columns'=>array(
-		'TID',
-		'Title',
-		'FirstYear',
-		'FirstMonth',
-		/*
-		'cat',
-		'TitleFlag',
-		'FirstEndYear',
-		'FirstEndMonth',
-		'FirstCh',
-		'Keywords',
-		'SubTitles',
-		'_id',
-		*/
-		array(
-			'class'=>'CButtonColumn',
-		),
-	),
-)); ?>
+    'id'=>'series-grid',
+    'dataProvider'=>new EMongoDocumentDataProvider($model->search()->model, array(
+        'sort'=>array(
+            'attributes'=>array(
+                'TID',
+                'Title',
+                'FirstYear',
+                'FirstMonth',
+                /*
+                'cat',
+                'TitleFlag',
+                'FirstEndYear',
+                'FirstEndMonth',
+                'FirstCh',
+                'Keywords',
+                'SubTitles',
+                '_id',
+                */
+            ),
+        ),
+    )),
+    'filter'=>$model,
+    'columns'=>array(
+        'TID',
+        'Title',
+        'FirstYear',
+        'FirstMonth',
+        /*
+        'cat',
+        'TitleFlag',
+        'FirstEndYear',
+        'FirstEndMonth',
+        'FirstCh',
+        'Keywords',
+        'SubTitles',
+        '_id',
+        */
+        array(
+            'class'=>'CButtonColumn',
+        ),
+    ),
+));

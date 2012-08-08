@@ -5,10 +5,10 @@ class User extends EMongoDocument
   public $nickname;
   public $checklist;
 
-	public function primaryKey()
-	{
-		return '_id'; 
-	}
+    public function primaryKey()
+    {
+        return '_id';
+    }
 
   public function getCollectionName()
   {
@@ -61,6 +61,7 @@ class User extends EMongoDocument
     $key=implode('_', $conditions);
     $this->checklist[$key]=$conditions;
     Yii::log($this->twitter_id.' check '.$key,'info','application.model.user');
+
     return $this->save();
   }
 
@@ -73,6 +74,7 @@ class User extends EMongoDocument
     $key=implode('_', $conditions);
     unset($this->checklist[$key]);
     Yii::log($this->twitter_id.' uncheck '.$key,'info','application.model.user');
+
     return $this->save();
   }
 
@@ -84,39 +86,43 @@ class User extends EMongoDocument
   public function getCheckedSeries()
   {
     if(count($this->checklist)===0)
+
       return array();
 
     $tids=array();
-    foreach($this->checklist as $conditions){
+    foreach ($this->checklist as $conditions) {
       if($conditions['TID'])
         $tids[]=$conditions['TID'];
     }
     $criteria = new EMongoCriteria;
     $criteria->addCond('TID','in',$tids);
+
     return Series::model()->findAll($criteria);
   }
 
   public function getCheckedPrograms()
   {
     if(count($this->checklist)===0)
+
       return array();
 
     $tids=array();
     $criteria = new EMongoCriteria;
-    foreach($this->checklist as $conditions){
+    foreach ($this->checklist as $conditions) {
       $criteria->addCond(null,'or',$conditions);
     }
     $criteria->sort('StTime',1);
+
     return Program::model()->findAll($criteria);
   }
 
   public function marking(&$checklist)
   {
     if(count($this->checklist)===0)
+
       return false;
 
-    foreach($checklist as $key=>$program)
-    {
+    foreach ($checklist as $key=>$program) {
       $checklist[$key]->isChecked=false;
       if(get_class($program)==='Series')
         $tmp=array('TID'=>$program->TID);
@@ -131,21 +137,20 @@ class User extends EMongoDocument
   {
     if($this->checklist===null)
       $this->checklist=array();
-    if(count($condition)===1)
-    {
-      foreach($this->checklist as $program)
-      {
+    if (count($condition)===1) {
+      foreach ($this->checklist as $program) {
         $var=key($condition);
         if($program[$var]===$condition[$var])
+
           return true;
       }
-    }
-    else
-    {
+    } else {
       ksort($condition);
       $key=implode('_', $condition);
+
       return array_key_exists($key, $this->checklist);
     }
+
     return false;
   }
 }

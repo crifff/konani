@@ -1,1 +1,1 @@
-<?php echo ProgramListHelper::item($data)?>
+<?php echo ProgramListHelper::item($data);

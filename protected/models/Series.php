@@ -19,10 +19,10 @@ class Series extends EMongoDocument
 
   public $isChecked;
 
-	public function primaryKey()
-	{
-		return '_id'; 
-	}
+    public function primaryKey()
+    {
+        return '_id';
+    }
 
   public function getCollectionName()
   {
@@ -58,7 +58,7 @@ class Series extends EMongoDocument
   public function Programs()
   {
     return Program::model()->findAllByAttributes(array(
-      'TID' => (string)$this->TID
+      'TID' => (string) $this->TID
     ));
   }
 
@@ -74,7 +74,7 @@ class Series extends EMongoDocument
       $checklist=array(array('TID'=>false));//結果が空になるクエリ
 
     $criteria=$this->getDbCriteria();
-    foreach($checklist as $conditions){
+    foreach ($checklist as $conditions) {
       $criteria->addCond('TID','or',$conditions['TID']);
     }
     $criteria->sort('StTime',1);
@@ -94,7 +94,7 @@ class Series extends EMongoDocument
       $year=date('Y');
 
     $criteria=$this->getDbCriteria();
-    $criteria->addCond('FirstYear','equals',(string)$year);
+    $criteria->addCond('FirstYear','equals',(string) $year);
     $criteria->addCond('FirstMonth','in',Cour::seasonMonthArray($season));
     $this->setDbCriteria($criteria);
 
@@ -126,19 +126,20 @@ class Series extends EMongoDocument
 
   public function setAttributes($values, $safeOnly = true)
   {
-    foreach($values as $key => $value)
-    {
+    foreach ($values as $key => $value) {
       if(is_array($value) && count($value) === 0)
         $values[$key] = '';
     }
+
     return parent::setAttributes($values);
   }
 
   public function getChannels()
   {
     $programs = Program::model()->yet()->findAllByAttributes(array(
-      'TID'=>(string)$this->TID,
+      'TID'=>(string) $this->TID,
     ));
+
     return $programs;
   }
 

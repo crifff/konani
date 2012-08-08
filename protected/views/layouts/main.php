@@ -7,6 +7,8 @@
   <link href="/css/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
   <link rel="shortcut icon" href="/favicon.ico">
   <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+     <script type="text/javascript" src="/css/bootstrap/js/bootstrap.js"></script>
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-26503142-2']);
@@ -47,9 +49,6 @@
        author: <a href="https://twitter.com/crifff/" target="_blank">@crifff</a><br />
        <?php echo Yii::powered(); ?>
      </footer>
-     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-     <script type="text/javascript" src="/css/bootstrap/js/bootstrap.js"></script>
    </div>
  </body>
 </html>
-
