@@ -13,12 +13,18 @@ modules:
     enabled:
         - WebHelper
         - PhpBrowser
+        - Db
 # you can use WebDriver instead of PhpBrowser to test javascript and ajax.
 # This will require you to install selenium. See http://codeception.com/docs/04-AcceptanceTests#Selenium
 #        - WebDriver
     config:
+        Db:
+            dsn: 'mysql:host=localhost;dbname=konani_acceptance'
+            user:
+            password:
+            dump: tests/_data/dump.sql
         PhpBrowser:
-            url: 'http://localhost:8080'
+            url: 'http://localhost:3000'
 #        WebDriver:
 #            url: 'http://localhost'
 #            browser: firefox

@@ -5,13 +5,20 @@
 # (tip: better to use with frameworks).
 
 # RUN `build` COMMAND AFTER ADDING/REMOVING MODULES.
-#basic/web/index.php
+#/index.php
 class_name: TestGuy
 modules:
     enabled:
       - Filesystem
       - TestHelper
       - Yii2
+      - Db
     config:
         Yii2:
             configFile: 'tests/functional/_config.php'
+        Db:
+            dsn: 'mysql:host=localhost;dbname=konani_functional'
+            user:
+            password:
+            dump: tests/_data/dump.sql
+

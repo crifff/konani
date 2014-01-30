@@ -1,0 +1,137 @@
+$main-color: #31C4F5;
+@mixin line-left($op1: .2, $op2: .3) {
+  border-left: 1px solid rgba(0, 0, 0, $op1);
+  box-shadow: -1px 0 0 rgba(255, 255, 255, $op2);
+}
+
+html,
+body {
+  height: 100%;
+  background-color: #FCFCFC;
+}
+
+#header {
+  background-color: $main-color;
+  border-radius: 0;
+  box-shadow: 1px 0 3px #999;
+}
+
+#nav-logo {
+  width: 200px;
+}
+
+.wrap {
+  min-height: 100%;
+  height: auto;
+  margin: 0 auto -60px;
+  padding: 0 0 60px;
+  & + .container {
+    padding: 70px 15px 20px;
+  }
+}
+
+.footer {
+  height: 60px;
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+}
+
+.jumbotron {
+  text-align: center;
+  background-color: transparent;
+  .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+  }
+}
+
+.not-set {
+  color: #c55;
+  font-style: italic;
+}
+
+/* add sorting icons to gridview sort links */
+a.asc:after, a.desc:after {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  padding-left: 5px;
+}
+
+a.asc:after {
+  content: /*"\e113"*/ "\e151";
+}
+
+a.desc:after {
+  content: /*"\e114"*/ "\e152";
+}
+
+.sort-numerical a.asc:after {
+  content: "\e153";
+}
+
+.sort-numerical a.desc:after {
+  content: "\e154";
+}
+
+.sort-ordinal a.asc:after {
+  content: "\e155";
+}
+
+.sort-ordinal a.desc:after {
+  content: "\e156";
+}
+
+.grid-view th {
+  white-space: nowrap;
+}
+
+.hint-block {
+  display: block;
+  margin-top: 5px;
+  color: #999;
+}
+
+.error-summary {
+  color: #a94442;
+  background: #fdf7f7;
+  border-left: 3px solid #eed3d7;
+  padding: 10px 20px;
+  margin: 0 0 15px 0;
+}
+
+h1 {
+}
+
+.program-list {
+  li {
+    clear: both;
+  }
+  .start-time {
+    float: left;
+    width: 5rem;
+    font-size: 2rem;
+    font-family: 'Offside', cursive;
+  }
+  .title-wrap {
+    float: left;
+    width: 600px;
+    margin-bottom: 20px;
+    margin-left: 2rem;
+    padding: 2px 8px;
+    //    border: 1px solid #CCC;
+    //    border-left: 1px solid #CCC;
+    //    border-radius: 6px;
+    @include line-left(.1, 1);
+  }
+  list-style-type: none;
+  cite {
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+}

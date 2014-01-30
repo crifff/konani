@@ -2,60 +2,96 @@
 
 namespace app\models;
 
-class User extends \yii\base\Object implements \yii\web\IdentityInterface
+use yii\db\ActiveRecord;
+use yii\web\IdentityInterface;
+
+/**
+ * This is the model class for table "user".
+ *
+ * @property integer $id
+ * @property string $username
+ * @property string $password
+ * @property string $auth_key
+ * @property integer $twitter_id
+ * @property string $image_url
+ */
+class User extends ActiveRecord implements IdentityInterface
 {
-	public $id;
-	public $username;
-	public $password;
-	public $authKey;
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'user';
+    }
 
-	private static $users = [
-		'100' => [
-			'id' => '100',
-			'username' => 'admin',
-			'password' => 'admin',
-			'authKey' => 'test100key',
-		],
-		'101' => [
-			'id' => '101',
-			'username' => 'demo',
-			'password' => 'demo',
-			'authKey' => 'test101key',
-		],
-	];
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['twitter_id'], 'integer'],
+            [['username'], 'string', 'max' => 128],
+            [['password', 'auth_key'], 'string', 'max' => 64]
+        ];
+    }
 
-	public static function findIdentity($id)
-	{
-		return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
-	}
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'username' => 'User Name',
+            'password' => 'Password',
+            'auth_key' => 'Auth Key',
+            'twitter_id' => 'Twitter ID',
+            'image_url' => 'Image Url',
+        ];
+    }
 
-	public static function findByUsername($username)
-	{
-		foreach (self::$users as $user) {
-			if (strcasecmp($user['username'], $username) === 0) {
-				return new static($user);
-			}
-		}
-		return null;
-	}
+    /**
+     * @param int|string $id
+     * @return null|\yii\db\ActiveQuery|static
+     */
+    public static function findIdentity($id)
+    {
+        return self::find(['id' => $id]);
+    }
 
-	public function getId()
-	{
-		return $this->id;
-	}
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
-	public function getAuthKey()
-	{
-		return $this->authKey;
-	}
+    /**
+     * @return string
+     */
+    public function getAuthKey()
+    {
+        return $this->auth_key;
+    }
 
-	public function validateAuthKey($authKey)
-	{
-		return $this->authKey === $authKey;
-	}
+    /**
+     * @param string $authKey
+     * @return bool
+     */
+    public function validateAuthKey($authKey)
+    {
+        return $this->auth_key === $authKey;
+    }
 
-	public function validatePassword($password)
-	{
-		return $this->password === $password;
-	}
+    /**
+     * @param $password
+     * @return bool
+     */
+    public function validatePassword($password)
+    {
+        return $this->password === $password;
+    }
 }
