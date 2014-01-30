@@ -18,7 +18,7 @@ modules:
             configFile: 'tests/functional/_config.php'
         Db:
             dsn: 'mysql:host=localhost;dbname=konani_functional'
-            user:
+            user: root
             password:
             dump: tests/_data/dump.sql
 
