@@ -10,7 +10,7 @@ modules:
         - Db
     config:
         Db:
-            dsn: 'mysql:host=localhost;dbname=konani_unit'
+            dsn: 'mysql:host=localhost;dbname=konani_test'
             user: root
             password:
             dump: tests/_data/dump.sql

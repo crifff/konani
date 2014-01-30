@@ -19,7 +19,7 @@ modules:
 #        - WebDriver
     config:
         Db:
-            dsn: 'mysql:host=localhost;dbname=konani_acceptance'
+            dsn: 'mysql:host=localhost;dbname=konani_test'
             user: root
             password:
             dump: tests/_data/dump.sql
