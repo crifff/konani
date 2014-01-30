@@ -11,6 +11,9 @@ return yii\helpers\ArrayHelper::merge(
         'components' => [
             'db' => [
                 'dsn' => 'mysql:host=localhost;dbname=konani_test',
+                'username' => 'root',
+                'password' => '',
+                'charset' => 'utf8',
             ],
         ],
     ]
