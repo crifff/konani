@@ -15,7 +15,7 @@ install:
 #  - mysql -e 'CREATE DATABASE yiitest;';
 
 script:
-  - t php vendor/bin/codecept run
+  - php vendor/bin/codecept run
 
 #after_script:
 #  - php vendor/bin/coveralls
