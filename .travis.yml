@@ -5,18 +5,14 @@ php:
   - 5.5
 #  - hhvm # commented until composer or hhvm get fixed: https://github.com/facebook/hhvm/issues/1347
 
-#services:
-#  - memcached
-
 install:
   - composer self-update && composer --version
-  - composer install --prefer-dist
-  - tests/unit/data/travis/memcache-setup.sh
+  - composer install --dev --prefer-dist
   - php vendor/bin/codecept build
   - php -S localhost:3000 -t web &
 
-before_script:
-  - mysql -e 'CREATE DATABASE yiitest;';
+#before_script:
+#  - mysql -e 'CREATE DATABASE yiitest;';
 
 script:
   - cd apps/basic && php vendor/bin/codecept run
