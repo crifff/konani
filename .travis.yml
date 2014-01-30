@@ -11,8 +11,10 @@ install:
   - php vendor/bin/codecept build
   - php -S localhost:3000 -t web &
 
-#before_script:
-#  - mysql -e 'CREATE DATABASE yiitest;';
+before_script:
+  - mysql -e 'CREATE DATABASE konani_acceptance;';
+  - mysql -e 'CREATE DATABASE konani_functional;';
+  - mysql -e 'CREATE DATABASE konani_unit;';
 
 script:
   - php vendor/bin/codecept run
