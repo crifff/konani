@@ -38,7 +38,6 @@ AppAsset::register($this);
         [
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => [
-                ['label' => 'Home', 'url' => ['/']],
                 ['label' => '今日のアニメ', 'url' => ['/program']],
                 ['label' => '今期', 'url' => ['/series/2014/winter']],
                 Yii::$app->user->isGuest ?

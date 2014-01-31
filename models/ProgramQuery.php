@@ -7,7 +7,8 @@ class ProgramQuery extends ActiveQuery
 {
     public function yet()
     {
-        $this->andWhere('start_time >' . time());
+        $now = date('Y-m-d H:i:s');
+        $this->andWhere("end_time > '{$now}'");
         return $this;
     }
 

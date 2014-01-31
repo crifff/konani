@@ -1,5 +1,6 @@
 <?php
 
+use app\helpers\DateHelper;
 use yii\helpers\Html;
 
 /**
@@ -11,33 +12,32 @@ use yii\helpers\Html;
 
 $this->title = '今日のアニメ';
 $this->params['breadcrumbs'][] = $this->title;
-$today = $date->format('Y-m-d');
-$yesterday = $date->sub(new DateInterval('P1D'))->format('Y-m-d');
-$tomorrow = $date->add(new DateInterval('P2D'))->format('Y-m-d');
+$today = clone $date;
+$yesterday = clone $date->sub(new DateInterval('P1D'));
+$tomorrow = clone $date->add(new DateInterval('P2D'));
 ?>
 <div class="program-index">
 
     <div class="text-center">
         <h1>
-            <?php if ($today === date('Y-m-d')): ?>
-                今日のアニメ
-            <?php elseif ($today === date('Y-m-d', strtotime('tomorrow'))): ?>
-                明日のアニメ
-            <?php
-            elseif ($today === date('Y-m-d', strtotime('yesterday'))): ?>
-                昨日のアニメ
-            <?php
-            else: ?>
-                <?= date('m月d日') ?>のアニメ
-            <?php endif ?>
+            <?= date('m/d') ?>(<?= DateHelper::youbi(date('N', $today->getTimestamp())) ?>)のアニメ
         </h1>
     </div>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <ul class="pager">
         <li class="previous"><a
-                href="<?= Html::Url(['program/index', 'date' => $yesterday]) ?>">&laquo; <?= $yesterday ?></a></li>
-        <li class="next"><a href="<?= Html::Url(['program/index', 'date' => $tomorrow]) ?>"><?= $tomorrow ?> &raquo;</a>
+                href="<?=
+                Html::Url(
+                    ['program/index', 'date' => $yesterday->format('Y-m-d')]
+                ) ?>">&laquo; <?= $yesterday->format('m/d') ?>(<?= DateHelper::youbi(
+                    date('N', $yesterday->getTimestamp())
+                ) ?>)</a></li>
+        <li class="next"><a href="<?=
+            Html::Url(
+                ['program/index', 'date' => $tomorrow->format('Y-m-d')]
+            ) ?>"><?= $tomorrow->format('m/d') ?>(<?= DateHelper::youbi(date('N', $tomorrow->getTimestamp())) ?>
+                ) &raquo;</a>
         </li>
     </ul>
     <ul class="program-list">
@@ -45,11 +45,22 @@ $tomorrow = $date->add(new DateInterval('P2D'))->format('Y-m-d');
         foreach ($dataProvider->getModels() as $model): ?>
             <li>
                 <div class="start-time">
-                    <?= date('H:i', strtotime($model->start_time)) ?>
+                    <?php if (strtotime($model->start_time) < time() && time() < strtotime($model->end_time)): ?>
+                        <span class="label label-info">放送中</span>
+                        <br/>
+                    <?php endif ?>
+                    <?php if (strtotime($model->start_time) - 300 < time() && time() < strtotime(
+                            $model->start_time
+                        )
+                    ): ?>
+                        <span class="label label-success">もうすぐ</span>
+                        <br/>
+                    <?php endif ?>
+                    <?= date('H:i', strtotime($model->start_time)) ?> 〜 <?= date('H:i', strtotime($model->end_time)) ?>
                 </div>
                 <div class="title-wrap">
                     <div>
-                        <span class="badge"><?= Html::encode($model->channel->name) ?></span>
+                        <span class="label label-default"><?= Html::encode($model->channel->name) ?></span>
                     </div>
                     <div>
 
@@ -61,11 +72,15 @@ $tomorrow = $date->add(new DateInterval('P2D'))->format('Y-m-d');
                             ) ?>">
                                 <?= Html::encode($model->title->title) ?>
                             </a>
+                            <span class="story-count">
+                            <?php if ($model->count): ?>
+                                #<?= Html::encode($model->count) ?>
+                            <?php endif ?>
+                            </span>
                         </cite>
                     </div>
 
                     <div class="subtitle">
-                        #<?= Html::encode($model->count) ?>
                         <?php if ($model->sub_title): ?>
                             『<?= Html::encode($model->sub_title) ?>』
                         <?php endif ?>

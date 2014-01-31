@@ -73,7 +73,7 @@ class ProgramSearch extends Model
 
     public function byDate(DateTime $date = null)
     {
-        $query = Program::find()->with('title', 'channel')->orderBy(['start_time' => SORT_ASC]);
+        $query = Program::find()->with('title', 'channel')->orderBy(['start_time' => SORT_ASC])->yet();
         if ($date) {
             $query->today($date);
         }

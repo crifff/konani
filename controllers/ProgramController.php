@@ -19,11 +19,9 @@ class ProgramController extends Controller
      */
     public function actionIndex($date = null)
     {
+        $date = new \DateTime($date ? : date('Y-m-d'));
+
         $searchModel = new ProgramSearch;
-        if (!$date) {
-            $date = date('Y-m-d H:i:s');
-        }
-        $date = new \DateTime($date);
         $dataProvider = $searchModel->byDate(clone $date);
         $dataProvider->setPagination(['pageSize' => 0]);
 

@@ -114,9 +114,12 @@ h1 {
   }
   .start-time {
     float: left;
-    width: 5rem;
+    width: 14rem;
     font-size: 2rem;
     font-family: 'Offside', cursive;
+    .label {
+      font-size: 1.05rem;
+    }
   }
   .title-wrap {
     float: left;
@@ -134,4 +137,8 @@ h1 {
     font-size: 2.5rem;
     font-weight: bold;
   }
+}
+
+.story-count {
+  font-family: 'Offside', cursive;
 }
