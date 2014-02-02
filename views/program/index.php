@@ -16,6 +16,7 @@ $today = clone $date;
 $yesterday = clone $date->sub(new DateInterval('P1D'));
 $tomorrow = clone $date->add(new DateInterval('P2D'));
 ?>
+<div class="container">
 <div class="program-index">
 
     <div class="text-center">
@@ -89,4 +90,6 @@ $tomorrow = clone $date->add(new DateInterval('P2D'));
             </li>
         <?php endforeach ?>
     </ul>
+</div>
+
 </div>

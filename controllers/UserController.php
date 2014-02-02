@@ -11,6 +11,7 @@ class UserController extends Controller
     public function actionIndex($date = null)
     {
         $user = \Yii::$app->user->identity;
+        $date = new \DateTime($date ? : date('Y-m-d'));
 
         $programs = Program::find()->today($date)
             ->with('title', 'channel')
@@ -28,7 +29,10 @@ class UserController extends Controller
                 'pageSize' => 20,
             ],
         ]);
-        return $this->render('index', ['dataProvider' => $dataProvider]);
+        return $this->render('index', [
+                'dataProvider' => $dataProvider,
+                'date' => $date,
+            ]);
     }
 
 }

@@ -10,7 +10,14 @@ $config = [
     'extensions' => require(__DIR__ . '/../vendor/yiisoft/extensions.php'),
     'components' => [
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            'class' => '\yii\caching\MemCache',
+            'servers' => [
+                [
+                    'host' => 'localhost',
+                    'port' => 11211,
+                    'weight' => 100,
+                ],
+            ],
         ],
         'user' => [
             'identityClass' => 'app\models\User',
@@ -36,8 +43,8 @@ $config = [
             'clients' => [
                 'twitter' => [
                     'class' => 'yii\authclient\clients\Twitter',
-                    'consumerKey' => 'ogh0Jxx1pA07evQC1CpiqQ',
-                    'consumerSecret' => 'wIiA2TOzL7ncryDP1H9dDnSRCqUwdbIPsWjsIPpw',
+                    'consumerKey' => $params['twitterConsumerKey'],
+                    'consumerSecret' => $params['twitterConsumerSecret'],
                 ],
             ],
         ],

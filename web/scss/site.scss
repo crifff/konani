@@ -14,6 +14,7 @@ body {
   background-color: $main-color;
   border-radius: 0;
   box-shadow: 1px 0 3px #999;
+  margin: 0;
 }
 
 #nav-logo {
@@ -141,4 +142,34 @@ h1 {
 
 .story-count {
   font-family: 'Offside', cursive;
+}
+
+#series-container-wrapper {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  h1 {
+    position: absolute;
+    top: 0;
+    background: #000;
+    color: #FFF;
+    padding: 16px 32px;
+  }
+}
+
+#series-container {
+  width: 120%;
+}
+
+.series-info {
+  position: absolute;
+  top: 250px;
+  width: 80%;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 5px;
+  padding: 2rem 1rem;
+}
+.panel{
+  background-color: transparent;
 }
