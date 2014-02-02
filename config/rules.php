@@ -4,4 +4,5 @@ return [
     'series/<year:\d+>/<season:\w+>' => 'series/index',
     'user/<username:\w+>' => 'user/index',
     '<controller:\w+>/<id:\d+>' => '<controller>/view',
+    '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
 ];

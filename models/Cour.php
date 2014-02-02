@@ -4,6 +4,7 @@ namespace app\models;
 
 use yii\base\Model;
 use Yii;
+use yii\helpers\Html;
 
 class Cour extends Model
 {
@@ -73,7 +74,7 @@ class Cour extends Model
             $year++;
         }
         $season = self::getNextSeason($season);
-
+        return Html::url(['series/index', 'year' => $year, 'season' => $season]);
     }
 
     public static function getBeforeSeason($season)
@@ -88,12 +89,12 @@ class Cour extends Model
         return $beforeSeasons[$season];
     }
 
-    public static function getbeforeSeasonUrl($year, $season)
+    public static function getPreviousSeasonUrl($year, $season)
     {
         if ($season === 'winter') {
             $year--;
         }
         $season = self::getBeforeSeason($season);
-
+        return Html::url(['series/index', 'year' => $year, 'season' => $season]);
     }
 }

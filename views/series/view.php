@@ -22,16 +22,21 @@ $("#series-container").gridalicious({
     effect: 'fadeInOnAppear'
   }
 });
-//.nested({
-//  minWidth: 150,
-//  gutter: 0,
-//  animate: true,
-//  animationOptions: {
-//    speed: 10,
-//    duration: 20,
-//  }
-
-//});
+    $(function () {
+        $('.js-check').click(function (e) {
+            console.log('ci');
+            e.preventDefault();
+            var anchor = $(this);
+            var url = anchor.attr('href');
+            $.post(url).success(function (data) {
+                if (data.result === 'check')
+                    anchor.find('span').removeClass('no-checked').addClass(('checked'));
+                else if (data.result === 'uncheck')
+                    anchor.find('span').removeClass('checked').addClass(('no-checked'));
+            });
+            return;
+        });
+    });
 JS
     ,
     \yii\web\View::POS_END
@@ -54,27 +59,30 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="series-info">
         <h2>放送局</h2>
         <ul class="list-group">
-            <?php foreach ($channels as $channel): ?>
-                <li class="list-group-item">
-                    <a href="<?=
-                    Yii::$app->urlManager->createUrl(
-                        'series/check',
-                        ['title_id' => $title->id, 'channel_id' => $channel->id]
-                    ) ?>">
-                        <?= $channel->name ?>
-                    </a>
-                </li>
+            <?php foreach ($title->channels as $channel): ?>
+                <?php $isChecked = \app\models\Favorite::find(
+                    ['user_id' => Yii::$app->user->id, 'title_id' => $title->id, 'channel_id' => $channel->id]
+                ) ?>
+                <a href="<?=
+                Yii::$app->urlManager->createUrl(
+                    'series/check',
+                    ['title_id' => $title->id, 'channel_id' => $channel->id]
+                ) ?>" class="list-group-item js-check">
+                    <span class="glyphicon glyphicon-check <?= $isChecked ? 'checked' : 'no-checked' ?>"></span>
+                    <?= $channel->name ?>
+                </a>
             <?php endforeach ?>
         </ul>
-        <!--        --><? //= var_dump($title) ?>
-        <div class="panel panel-default">
-            <!-- Default panel contents -->
-            <div class="panel-heading">memo</div>
-            <div class="panel-body">
+        <h2>リンク</h2>
 
-                <?= nl2br($title->comment) ?>
-            </div>
+        <div class="list-group">
+            <?php foreach (\app\models\Memo::links($title->comment) as $link): ?>
+                <a href="<?= $link['url'] ?>" class="list-group-item" target="_blank"><?= $link['label'] ?> <span
+                        class="glyphicon glyphicon-new-window"></span></a>
+            <?php endforeach ?>
         </div>
-
     </div>
 </div>
+<script>
+
+</script>

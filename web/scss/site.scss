@@ -173,3 +173,13 @@ h1 {
 .panel{
   background-color: transparent;
 }
+
+.no-checked {
+  color: #DDD;
+  text-shadow: -1px -1px 0 #999, 1px 1px 0 #FFF;
+}
+
+.checked {
+  color: #63dd38;
+  text-shadow: -1px -1px 0 #999, 1px 1px 0 #FFF;
+}

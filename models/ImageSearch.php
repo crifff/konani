@@ -3,6 +3,7 @@
 namespace app\models;
 
 use yii\base\Model;
+use Yii;
 
 /**
  * Class ProgramSearch
@@ -10,9 +11,20 @@ use yii\base\Model;
  */
 class ImageSearch extends Model
 {
+    public static function getImages(Title $title)
+    {
+        $key = "images_by_title_id_{$title->id}";
+        $images = Yii::$app->cache->get($key);
+        if (!$images) {
+            $images = ImageSearch::search($title->title);
+        }
+        Yii::$app->cache->set($key, $images);
+        return $images;
+    }
+
     public static function search($query, $categoryId = 0)
     {
-        $acctKey = \Yii::$app->params['bingAccountKey'];
+        $acctKey = Yii::$app->params['bingAccountKey'];
 
         $rootUri = 'https://api.datamarket.azure.com/Bing/Search';
         // Encode the query and the single quotes that must surround it.
