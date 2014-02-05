@@ -23,8 +23,7 @@ AppAsset::register($this);
 <body>
 <?php $this->beginBody() ?>
 <div class="wrap">
-    <?php
-    NavBar::begin(
+    <?php NavBar::begin(
         [
             'brandLabel' => '<img src="/images/logo2.png" id="nav-logo">',
             'brandUrl' => Yii::$app->homeUrl,
@@ -36,22 +35,29 @@ AppAsset::register($this);
     );
     echo Nav::widget(
         [
-            'options' => ['class' => 'navbar-nav navbar-right'],
+            'options' => ['class' => 'navbar-nav navbar-left'],
             'items' => [
                 ['label' => '今日のアニメ', 'url' => ['/program']],
                 ['label' => '今期', 'url' => ['/series/2014/winter']],
-                Yii::$app->user->isGuest ?
-                    ['label' => 'Login', 'url' => ['/site/auth', 'authclient' => 'twitter']] :
-                    [
-                        'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-                        'url' => ['/site/logout'],
-                        'linkOptions' => ['data-method' => 'post']
-                    ],
+
             ],
         ]
     );
+    echo Nav::widget(
+        [
+            'options' => ['class' => 'navbar-nav navbar-right'],
+            'items' => [
+                Yii::$app->user->isGuest ?
+                    ['label' => 'Login', 'url' => ['/site/auth', 'authclient' => 'twitter']]
+                    : Html::img(\Yii::$app->user->identity->image_url).Html::encode(Yii::$app->user->identity->username)
+            ]
+            ,
+        ]
+    );
     NavBar::end();
+
     ?>
+
     <div class="container">
         <?= $content ?>
     </div>
