@@ -43,6 +43,7 @@ $config = [
             'clients' => [
                 'twitter' => [
                     'class' => 'yii\authclient\clients\Twitter',
+                    'authUrl' => 'https://api.twitter.com/oauth/authenticate',
                     'consumerKey' => $params['twitterConsumerKey'],
                     'consumerSecret' => $params['twitterConsumerSecret'],
                 ],
