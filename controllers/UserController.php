@@ -3,14 +3,18 @@
 namespace app\controllers;
 
 use app\models\Program;
+use app\models\User;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 
 class UserController extends Controller
 {
-    public function actionIndex($date = null)
+    public function actionIndex($username = null, $date = null)
     {
         $user = \Yii::$app->user->identity;
+        if (!$user || $user->username !== $username) {
+            $user = User::find(['username' => $username]);
+        }
         $date = new \DateTime($date ? : date('Y-m-d'));
 
         $programs = Program::find()->today($date)
@@ -29,10 +33,13 @@ class UserController extends Controller
                 'pageSize' => 20,
             ],
         ]);
-        return $this->render('index', [
+        return $this->render(
+            'index',
+            [
                 'dataProvider' => $dataProvider,
                 'date' => $date,
-            ]);
+            ]
+        );
     }
 
 }
