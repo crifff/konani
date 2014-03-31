@@ -66,18 +66,13 @@ class SeriesController extends Controller
         $image = Yii::$app->cache->get($key);
 
         if (!$image) {
-
             $title = Title::find(['id' => $id]);
             if (!$title) {
                 throw new HttpException(404, 'Page not exists');
             }
             $images = ImageSearch::getImages($title);
-            $image = array_shift($images->d->results);
-            $file = file_get_contents($image->MediaUrl);
-            $image = [
-                'contentType' => $image->ContentType,
-                'image' => $file,
-            ];
+            $image = $this->fetchImage($images->d->results);
+
             Yii::$app->cache->set($key, $image);
         }
 
@@ -85,6 +80,32 @@ class SeriesController extends Controller
         echo $image['image'];
         return;
 
+    }
+
+    private function fetchImage($imageList)
+    {
+        $image = array_shift($imageList);
+        $curl=curl_init();
+        curl_setopt($curl,CURLOPT_URL,$image->MediaUrl);
+        curl_setopt($curl,CURLOPT_FOLLOWLOCATION,true);
+        curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
+        curl_setopt($curl,CURLOPT_MAXREDIRS,10);
+        curl_setopt($curl,CURLOPT_AUTOREFERER,true);
+        curl_setopt($curl, CURLOPT_FAILONERROR, true);
+        $result = curl_exec($curl);
+        $info = curl_getinfo($curl);
+        if($info['content_type']==='text/html')
+            $result=false;
+        curl_close($curl);
+        $image = [
+            'contentType' => $image->ContentType,
+            'image' => $result,
+        ];
+        if (!$result) {
+            $image = $this->fetchImage($imageList);
+        }
+
+        return $image;
     }
 
     public function actionCheck()
