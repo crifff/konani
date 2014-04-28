@@ -24,7 +24,7 @@ class SeriesController extends Controller
     public function actionIndex($year = 0, $season = '')
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Title::find()->season($year, $season),
+            'query' => Title::find()->season($year, $season)->with('favorites'),
             'pagination' => [
                 'pageSize' => 100,
             ],

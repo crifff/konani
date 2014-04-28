@@ -55,8 +55,8 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <h1><?= $title->title ?></h1>
 </div>
-<div class="container">
-    <div class="series-info">
+<div class="row">
+    <div class="col-md-12">
         <h2>放送局</h2>
         <ul class="list-group">
             <?php foreach ($title->channels as $channel): ?>

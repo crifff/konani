@@ -49,7 +49,7 @@ AppAsset::register($this);
             'items' => [
                 Yii::$app->user->isGuest ?
                     ['label' => 'Login', 'url' => ['/site/auth', 'authclient' => 'twitter']]
-                    : Html::img(\Yii::$app->user->identity->image_url).Html::encode(Yii::$app->user->identity->username)
+                    : Html::img(\Yii::$app->user->identity->image_url,['class'=>'twitter-icon']).Html::tag('span','@'.Html::encode(Yii::$app->user->identity->username),['class'=>'twitter-user-name'])
             ]
             ,
         ]

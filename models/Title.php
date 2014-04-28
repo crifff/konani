@@ -116,4 +116,13 @@ class Title extends \yii\db\ActiveRecord
     {
         return parent::find($q);
     }
+
+    /**
+     * @return \yii\db\ActiveRelation
+     */
+    public function getFavorites()
+    {
+        return $this->hasMany(Favorite::className(), ['title_id' => 'id']);
+    }
+
 }

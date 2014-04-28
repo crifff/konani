@@ -28,7 +28,25 @@ $this->params['breadcrumbs'][] = $this->title;
         </li>
     </ul>
 
-    <?php echo ListView::widget(
+    <div class="row">
+        <?php foreach ($dataProvider->models as $anime): ?>
+            <a href="<?= Html::url(['view', 'id' => $anime->id]) ?>">
+                <div class="col-xs-2 col-sm-4 col-md-3 col-lg-2">
+                    <div class="thumbnail <?php if(!empty($anime->favorites)):?> favorite-anime-box<?php endif?>">
+                        <div style="width: 100%;min-height: 150px; background-image: url(<?= Html::url(
+                            ['series/image', 'id' => $anime->id]
+                        ) ?>); background-size: 155px;background-repeat: no-repeat;">
+                        </div>
+                        <div class="caption">
+                            <h5 style="height: 2em"><?= $anime->title ?></h5>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        <?php endforeach ?>
+    </div>
+
+    <?php /* echo ListView::widget(
         [
             'dataProvider' => $dataProvider,
             'layout' => '{items}',
@@ -44,7 +62,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             Html::tag(
                                 'div',
                                 ''
-                                                            ,['style' => "width: 100%;min-height: 150px; background-image: url({$image}); background-size: 150px;background-repeat: no-repeat"]
+                                ,
+                                ['style' => "width: 100%;min-height: 150px; background-image: url({$image}); background-size: 150px;background-repeat: no-repeat"]
                             ),
                             ['class' => 'col-sm-3 col-md-2']
                         )
@@ -55,7 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     //                    return Html::a(Html::encode($model->title), ['view', 'id' => $model->id]);
                 },
         ]
-    ); ?>
+    );*/ ?>
 
 
 </div>
